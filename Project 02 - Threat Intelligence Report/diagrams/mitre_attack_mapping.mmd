@@ -1,0 +1,8 @@
+flowchart TD
+    IA[Initial Access] --> T1190[T1190 Exploit Public-Facing Application]
+    EX[Execution] --> T1059001[T1059.001 PowerShell]
+    EX --> T1047[T1047 Windows Management Instrumentation]
+    PE[Persistence] --> T1505003[T1505.003 Web Shell]
+    CA[Credential Access] --> T1003001[T1003.001 LSASS Memory]
+    LM[Lateral Movement] --> T1570[T1570 Lateral Tool Transfer]
+    IM[Impact] --> T1486[T1486 Data Encrypted for Impact]

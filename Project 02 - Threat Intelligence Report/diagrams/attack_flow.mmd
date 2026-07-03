@@ -1,0 +1,8 @@
+flowchart LR
+    A[Internet-facing on-premises SharePoint Server] --> B[Attacker sends crafted network request]
+    B --> C[CVE-2025-53770 deserialization weakness]
+    C --> D[Remote code execution on vulnerable server]
+    D --> E[Observed post-exploitation: web shell or command execution]
+    E --> F[Possible credential access or machine key theft]
+    F --> G[Possible lateral movement or ransomware activity]
+    G --> H[Business impact: data exposure, operational disruption, recovery cost]

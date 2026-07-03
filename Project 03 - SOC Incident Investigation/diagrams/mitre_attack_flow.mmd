@@ -1,0 +1,9 @@
+flowchart LR
+    A["T1566.001 Spearphishing Attachment"] --> B["T1204.002 User Execution: Malicious File"]
+    B --> C["T1059.001 PowerShell"]
+    C --> D["T1027 Obfuscated Files or Information"]
+    D --> E["T1105 Ingress Tool Transfer"]
+    E --> F["T1003 / T1003.001 OS Credential Dumping: LSASS Memory"]
+    F --> G["T1021.002 Remote Services: SMB/Windows Admin Shares"]
+    G --> H["Detected and contained before ransomware"]
+

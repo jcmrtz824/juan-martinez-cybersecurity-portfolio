@@ -1,0 +1,10 @@
+flowchart TD
+    A["Simulated phishing email"] --> B["Malicious macro-enabled attachment opened"]
+    B --> C["PowerShell executes from Excel"]
+    C --> D["External command retrieval attempted"]
+    D --> E["Credential theft attempted"]
+    E --> F["SMB lateral movement attempted"]
+    F --> G["SOC correlation detects behavior"]
+    G --> H["Endpoint and account contained"]
+    H --> I["Ransomware not deployed"]
+

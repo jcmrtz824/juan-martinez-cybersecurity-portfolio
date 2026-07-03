@@ -1,0 +1,15 @@
+SIMULATED EVIDENCE - NOT FROM A REAL ORGANIZATION
+
+Message-ID: <SIM-20260624-085213@careportal-update.example>
+Date: Wed, 24 Jun 2026 08:52:13 -0400
+From: "CarePortal Billing Support" <billing-support@careportal-update.example>
+Reply-To: support@careportal-update.example
+To: emiller@northstar-care.example
+Subject: Updated Q2 Patient Billing Adjustment Sheet
+Received: from mail.careportal-update.example (203.0.113.44)
+Authentication-Results: northstar-care.example; spf=neutral; dkim=none; dmarc=none
+Attachment: Q2_Patient_Billing_Adjustments.xlsm
+Attachment-SHA256: 7c9f1e0b0a1c2d3e4f5061728394a5b6c7d8e9f00112233445566778899aabbc
+
+Portfolio note: All domains, users, headers, IP addresses, and hashes in this file are simulated.
+

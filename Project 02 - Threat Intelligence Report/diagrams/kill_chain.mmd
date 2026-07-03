@@ -1,0 +1,6 @@
+flowchart LR
+    R[Reconnaissance: identify internet-facing SharePoint] --> D[Delivery: crafted request to vulnerable endpoint]
+    D --> E[Exploitation: CVE-2025-53770 RCE]
+    E --> I[Installation: reported web shell in observed incidents]
+    I --> C2[Command and Control: reported C2 or remote command channel]
+    C2 --> A[Actions on Objectives: credential access, data access, lateral movement, ransomware where observed]

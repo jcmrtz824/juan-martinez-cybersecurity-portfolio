@@ -1,0 +1,10 @@
+flowchart LR
+    A["08:52 - Simulated phishing email delivered"] --> B["09:12 - User opens simulated attachment"]
+    B --> C["09:13 - Excel launches PowerShell"]
+    C --> D["09:14 - Credential theft attempt detected"]
+    D --> E["09:16 - SMB lateral movement attempt fails"]
+    E --> F["09:18 - SIEM high severity alert fires"]
+    F --> G["09:42 - Account sessions revoked"]
+    G --> H["10:04 - Endpoint isolated"]
+    H --> I["14:35 - Endpoint reimaged and recovered"]
+

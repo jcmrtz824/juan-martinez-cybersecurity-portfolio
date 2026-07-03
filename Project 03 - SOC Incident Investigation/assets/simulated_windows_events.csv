@@ -1,0 +1,9 @@
+timestamp,event_source,event_id,host,user,simulated_detail,classification
+2026-06-24T09:13:02-04:00,Sysmon,1,NCG-WKS-014,ncare\emiller,Process Create: EXCEL.EXE spawned powershell.exe,SIMULATED
+2026-06-24T09:13:18-04:00,Sysmon,3,NCG-WKS-014,ncare\emiller,Network Connection: powershell.exe to 198.51.100.27:443,SIMULATED
+2026-06-24T09:14:41-04:00,Sysmon,10,NCG-WKS-014,ncare\emiller,Process Access: suspicious access attempt toward lsass.exe,SIMULATED
+2026-06-24T09:16:09-04:00,Security,4625,NCG-FS-02,ncare\emiller,Failed network logon from NCG-WKS-014,SIMULATED
+2026-06-24T09:16:12-04:00,Security,5140,NCG-FS-02,ncare\emiller,Network share access attempt against department share,SIMULATED
+2026-06-24T09:20:02-04:00,System,7045,NCG-FS-02,N/A,No unauthorized service creation observed during review,SIMULATED
+2026-06-24T10:04:21-04:00,EDR,ACTION,NCG-WKS-014,ncare\emiller,Endpoint isolated by SOC analyst,SIMULATED
+

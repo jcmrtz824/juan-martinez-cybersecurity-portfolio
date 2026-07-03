@@ -1,0 +1,7 @@
+timestamp,event_source,event_id,host,user,simulated_detail,classification
+2026-06-24T09:13:02-04:00,Sysmon,1,NCG-WKS-014,ncare\emiller,EXCEL.EXE launched powershell.exe with hidden window and encoded parameter,SIMULATED
+2026-06-24T09:13:05-04:00,PowerShell,4104,NCG-WKS-014,ncare\emiller,Script block logging captured obfuscated downloader logic; payload not reproduced,SIMULATED
+2026-06-24T09:13:18-04:00,Sysmon,3,NCG-WKS-014,ncare\emiller,powershell.exe attempted connection to updates-careportal.example over TCP 443,SIMULATED
+2026-06-24T09:14:41-04:00,EDR,ALERT,NCG-WKS-014,ncare\emiller,Suspicious credential access behavior blocked,SIMULATED
+2026-06-24T09:15:04-04:00,Defender,1116,NCG-WKS-014,ncare\emiller,Suspicious script content detected and blocked,SIMULATED
+

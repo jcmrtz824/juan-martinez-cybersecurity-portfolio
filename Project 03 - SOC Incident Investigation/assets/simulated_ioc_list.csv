@@ -1,0 +1,12 @@
+type,indicator,context,classification
+domain,careportal-update.example,Simulated lookalike sender domain,SIMULATED
+domain,updates-careportal.example,Simulated PowerShell network destination,SIMULATED
+ip,203.0.113.44,Simulated sending IP address,SIMULATED
+ip,198.51.100.27,Simulated command retrieval endpoint,SIMULATED
+email,billing-support@careportal-update.example,Simulated phishing sender,SIMULATED
+file,Q2_Patient_Billing_Adjustments.xlsm,Simulated malicious attachment,SIMULATED
+sha256,7c9f1e0b0a1c2d3e4f5061728394a5b6c7d8e9f00112233445566778899aabbc,Simulated attachment hash,SIMULATED
+host,NCG-WKS-014,Simulated affected workstation,SIMULATED
+user,ncare\emiller,Simulated affected user,SIMULATED
+process,EXCEL.EXE -> powershell.exe,Simulated suspicious process chain,SIMULATED
+

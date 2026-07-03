@@ -1,0 +1,16 @@
+flowchart TD
+    A["SIEM alert received"] --> B{"Validate suspicious behavior"}
+    B -->|True positive| C["Open incident response case"]
+    B -->|False positive| D["Close with tuning notes"]
+    C --> E["Isolate affected endpoint"]
+    C --> F["Revoke user sessions"]
+    C --> G["Block simulated IOCs"]
+    E --> H["Preserve simulated evidence"]
+    F --> H
+    G --> H
+    H --> I["Scope authentication, file server, DNS, proxy, and EDR logs"]
+    I --> J{"Ransomware or data theft observed?"}
+    J -->|No| K["Reimage endpoint and recover"]
+    J -->|Yes| L["Escalate severity and expand response"]
+    K --> M["Lessons learned and detection improvements"]
+
