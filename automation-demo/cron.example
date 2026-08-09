@@ -1,0 +1,2 @@
+# Run from this directory every five minutes. Replace /absolute/path before installing.
+*/5 * * * * cd /absolute/path/automation-demo && /usr/bin/python3 monitor.py >> monitoring/cron.log 2>&1
