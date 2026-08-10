@@ -1,0 +1,13 @@
+{
+  "name": "portfolio-automation-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sanitized Node.js REST service monitored by Python, cron, PM2, and optional Telegram alerts.",
+  "scripts": {
+    "start": "node server.js",
+    "check": "python3 monitor.py"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

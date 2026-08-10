@@ -27,12 +27,19 @@ I am building this portfolio as a junior cybersecurity consultant focused on pra
 
 Each project is structured to show technical process, evidence collection, risk analysis, remediation planning, and professional reporting.
 
+## Workflow Automation Demonstration
+
+The [sanitized workflow automation demo](./automation-demo/) implements a runnable Node.js REST health endpoint and Python JSONL monitor, with example PM2 and cron configuration and an optional Telegram failure-alert integration.
+
+The demo is deliberately limited: it does not prove a production deployment, delivered Telegram alert, active OpenClaw integration, multi-service coordination, dashboard, lead-generation workflow, or production watchdog. Those capabilities require separate sanitized evidence before they can be treated as publicly demonstrated.
+
 ## Featured Projects
 
 | Project | Focus | Deliverables | Status |
 | --- | --- | --- | --- |
 | [Project 01 - Vulnerability Assessment](./Project%2001%20-%20Vulnerability%20Assessment/) | Vulnerability management, CVSS scoring, remediation planning | [Report](./Project%2001%20-%20Vulnerability%20Assessment/REPORT.md), [PDF](./Project%2001%20-%20Vulnerability%20Assessment/REPORT.pdf), [Summary](./Project%2001%20-%20Vulnerability%20Assessment/PROJECT_SUMMARY.md) | Complete |
 | [Project 02 - Threat Intelligence Report](./Project%2002%20-%20Threat%20Intelligence%20Report/) | Public-source threat intelligence, MITRE ATT&CK mapping, defensive recommendations | [Report](./Project%2002%20-%20Threat%20Intelligence%20Report/REPORT.md), [PDF](./Project%2002%20-%20Threat%20Intelligence%20Report/REPORT.pdf), [Summary](./Project%2002%20-%20Threat%20Intelligence%20Report/PROJECT_SUMMARY.md) | Complete |
+| [Workflow Automation Demo](./automation-demo/) | Python and Node.js health monitoring, JSONL records, plus PM2, cron, and Telegram integration examples | [Documentation](./automation-demo/README.md), [Python monitor](./automation-demo/monitor.py), [Node.js service](./automation-demo/server.js) | Demonstration |
 
 ## Skills Matrix
 
