@@ -23,7 +23,7 @@ No live third-party systems were tested. No real client names, production IP add
 
 ## Portfolio Overview
 
-I am building this portfolio as a junior cybersecurity consultant focused on practical security analysis, clear reporting, and business-focused risk reduction. The work emphasizes vulnerability management, security operations, incident response, threat intelligence, and risk assessment.
+I am building this portfolio around practical workflow automation and cybersecurity analysis. The work emphasizes Python and Node.js health monitoring, scheduled checks, process-management examples, vulnerability management, threat intelligence, and risk assessment.
 
 Each project is structured to show technical process, evidence collection, risk analysis, remediation planning, and professional reporting.
 
@@ -45,6 +45,7 @@ The demo is deliberately limited: it does not prove a production deployment, del
 
 | Skill area | Demonstrated capability | Evidence |
 | --- | --- | --- |
+| Workflow automation | Node.js REST health endpoint, Python JSONL monitoring, and example PM2 and cron configuration | Workflow Automation Demo |
 | Vulnerability assessment | Asset review, finding validation, severity rating, remediation planning | Project 01 |
 | Threat intelligence | Public-source research, CVE analysis, defensive recommendations | Project 02 |
 | Risk assessment | Likelihood, impact, severity, business priority | Project 01 and Project 02 |
