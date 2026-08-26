@@ -1,18 +1,18 @@
-# Cybersecurity Portfolio
+# Automation & Cybersecurity Portfolio
 
-> Professional cybersecurity portfolio focused on vulnerability management, threat intelligence, security operations, incident response, and risk communication.
+> Professional portfolio focused on Python and Node.js workflow automation, health monitoring, scheduled checks, process-management examples, and cybersecurity analysis.
 
 ![Portfolio Status](https://img.shields.io/badge/status-active-brightgreen)
 ![Documentation](https://img.shields.io/badge/documentation-Markdown-blue)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE.md)
-![Cybersecurity](https://img.shields.io/badge/focus-cybersecurity-red)
+![Automation and Cybersecurity](https://img.shields.io/badge/focus-automation%20%2B%20cybersecurity-blue)
 ![Portfolio Views](https://komarev.com/ghpvc/?username=jcmrtz824&label=Portfolio%20views&color=0e75b6&style=flat)
 
 ## Professional Banner
 
 ```text
-Cybersecurity Portfolio
-Security analysis | Risk prioritization | Professional reporting | Defensive operations
+Automation & Cybersecurity Portfolio
+Python + Node.js | Health monitoring | PM2 + cron examples | Cybersecurity analysis
 ```
 
 ## Portfolio Demonstration
