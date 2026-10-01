@@ -1,0 +1,409 @@
+/* ============================================================================
+   Taqueria La Fogata — stylesheet
+   Layout: single narrow column, "street sign" stack, sticky action bar on
+   phones. Dark-first, because la fogata is a fire at night.
+   ========================================================================== */
+
+/* -- Dark is the default look. ------------------------------------------- */
+:root {
+  --bg:        #14100E;
+  --surface:   #1F1917;
+  --surface-2: #2A2321;
+  --fg:        #F7F0E8;
+  --fg-dim:    #B3A79D;
+  --ember:     #FF6A3D;
+  --flame:     #FFB224;
+  --lime:      #A3D44B;
+  --line:      #352B27;
+  --shadow:    rgba(0, 0, 0, .45);
+
+  --font-display: "Archivo Black", "Arial Black", Impact, system-ui, sans-serif;
+  --font-body:    "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --step--1: clamp(.78rem, .76rem + .1vw, .84rem);
+  --step-0:  clamp(1rem, .97rem + .15vw, 1.08rem);
+  --step-1:  clamp(1.2rem, 1.1rem + .4vw, 1.4rem);
+  --step-2:  clamp(1.5rem, 1.3rem + .8vw, 1.9rem);
+  --step-3:  clamp(2.1rem, 1.6rem + 2.2vw, 3.2rem);
+
+  --radius: 10px;
+  --gutter: 20px;
+
+  color-scheme: dark;
+}
+
+/* -- Light, for people whose system or toggle asks for it. ---------------- */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg:        #FFFCF8;
+    --surface:   #FFFFFF;
+    --surface-2: #F7F0E9;
+    --fg:        #1A1310;
+    --fg-dim:    #6B5D55;
+    --ember:     #C8431F;
+    --flame:     #9A6400;
+    --lime:      #4E7318;
+    --line:      #E8DCD2;
+    --shadow:    rgba(60, 40, 30, .12);
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg:        #FFFCF8;
+  --surface:   #FFFFFF;
+  --surface-2: #F7F0E9;
+  --fg:        #1A1310;
+  --fg-dim:    #6B5D55;
+  --ember:     #C8431F;
+  --flame:     #9A6400;
+  --lime:      #4E7318;
+  --line:      #E8DCD2;
+  --shadow:    rgba(60, 40, 30, .12);
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0;
+  text-wrap: balance;
+  letter-spacing: -.01em;
+}
+
+a { color: var(--ember); }
+
+:focus-visible {
+  outline: 3px solid var(--flame);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 660px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.eyebrow {
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--flame);
+  margin: 0;
+}
+
+/* -- Placeholder warning banner ------------------------------------------ */
+.notice {
+  background: var(--flame);
+  color: #16100A;
+  font-size: var(--step--1);
+  font-weight: 600;
+  line-height: 1.45;
+  padding-block: 10px;
+}
+.notice code {
+  background: rgba(0, 0, 0, .18);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: .95em;
+}
+
+/* -- Top bar: language + theme ------------------------------------------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-block: 12px;
+}
+.chip {
+  font: inherit;
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--fg-dim);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 13px;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+}
+.chip:hover { color: var(--fg); border-color: var(--fg-dim); }
+
+/* -- Hero ----------------------------------------------------------------- */
+.hero { padding-block: 8px 34px; }
+
+.flame-rule {
+  height: 4px;
+  border: 0;
+  margin: 0 0 22px;
+  background: linear-gradient(90deg, var(--ember), var(--flame) 55%, var(--lime));
+  border-radius: 2px;
+}
+
+.hero h1 {
+  font-size: var(--step-3);
+  text-transform: uppercase;
+}
+.hero h1 .ember { color: var(--ember); display: block; }
+
+.hero .tagline {
+  color: var(--fg-dim);
+  font-size: var(--step-1);
+  margin: 14px 0 0;
+}
+.hero .blurb {
+  margin: 18px 0 0;
+  max-width: 48ch;
+}
+
+/* -- Open / closed status ------------------------------------------------- */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 24px;
+  padding: 9px 16px 9px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+.status .dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--fg-dim);
+}
+.status[data-open="yes"] .dot { background: var(--lime); box-shadow: 0 0 0 4px color-mix(in srgb, var(--lime) 22%, transparent); }
+.status[data-open="no"]  .dot { background: var(--ember); }
+.status .detail { color: var(--fg-dim); font-weight: 500; }
+
+/* -- Buttons -------------------------------------------------------------- */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 14px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--fg);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  transition: transform .12s, border-color .15s, background .15s;
+}
+.btn:hover { transform: translateY(-1px); border-color: var(--fg-dim); }
+.btn:active { transform: none; }
+.btn--primary {
+  background: var(--ember);
+  border-color: var(--ember);
+  color: #190B06;
+}
+.btn--primary:hover { border-color: var(--ember); }
+.btn small {
+  display: block;
+  font-weight: 500;
+  font-size: var(--step--1);
+  opacity: .75;
+}
+
+/* -- Section scaffolding -------------------------------------------------- */
+section { padding-block: 34px; border-top: 1px solid var(--line); }
+section > .wrap > h2 {
+  font-size: var(--step-2);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.section-note { color: var(--fg-dim); font-size: var(--step--1); margin: 0 0 22px; }
+
+/* -- Menu ----------------------------------------------------------------- */
+.menu-cat + .menu-cat { margin-top: 32px; }
+.menu-cat h3 {
+  font-size: var(--step-1);
+  text-transform: uppercase;
+  color: var(--flame);
+  letter-spacing: .02em;
+}
+.menu-cat .cat-note {
+  color: var(--fg-dim);
+  font-size: var(--step--1);
+  margin: 5px 0 0;
+}
+
+.menu-list { list-style: none; margin: 14px 0 0; padding: 0; }
+.menu-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-block: 11px;
+  border-bottom: 1px dashed var(--line);
+}
+.menu-list li:last-child { border-bottom: 0; }
+
+.item-main { min-width: 0; flex: 1 1 auto; }
+.item-name { font-weight: 700; }
+.item-desc { display: block; color: var(--fg-dim); font-size: var(--step--1); margin-top: 2px; }
+.item-price {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  flex: none;
+  color: var(--fg);
+}
+
+.tag {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 7px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--surface-2);
+  color: var(--flame);
+  font-size: .68em;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* -- Hours ---------------------------------------------------------------- */
+.hours { list-style: none; margin: 0; padding: 0; }
+.hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding-block: 9px;
+  border-bottom: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+}
+.hours li:last-child { border-bottom: 0; }
+.hours li[data-today="yes"] { color: var(--flame); font-weight: 700; }
+.hours .day { text-transform: capitalize; }
+
+/* -- Callout cards (happy hour, coming soon) ----------------------------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: 0 1px 3px var(--shadow);
+}
+.card--accent {
+  border-left: 4px solid var(--ember);
+  background: var(--surface-2);
+}
+.card h2, .card h3 { font-size: var(--step-2); text-transform: uppercase; margin-top: 6px; }
+.card .when { font-weight: 700; margin: 12px 0 0; }
+.card p { margin: 10px 0 0; }
+.card p:first-of-type { margin-top: 12px; }
+
+/* -- Find us -------------------------------------------------------------- */
+.addr { margin: 0 0 6px; font-weight: 700; font-size: var(--step-1); }
+.addr-line { color: var(--fg-dim); margin: 0; }
+
+.copyrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.copyrow .label {
+  font-size: var(--step--1);
+  color: var(--fg-dim);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-weight: 700;
+  flex: none;
+}
+.copyrow .value {
+  font-weight: 700;
+  font-size: var(--step-1);
+  user-select: all;
+  flex: 1 1 auto;
+  min-width: 0;
+  word-break: break-word;
+}
+.copybtn {
+  font: inherit;
+  font-size: var(--step--1);
+  font-weight: 700;
+  padding: 8px 13px;
+  border-radius: 7px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--fg);
+  cursor: pointer;
+  flex: none;
+}
+.copybtn:hover { border-color: var(--fg-dim); }
+
+/* -- Social --------------------------------------------------------------- */
+.social { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+
+/* -- Footer --------------------------------------------------------------- */
+footer {
+  border-top: 1px solid var(--line);
+  padding-block: 28px 34px;
+  color: var(--fg-dim);
+  font-size: var(--step--1);
+}
+footer p { margin: 0 0 4px; }
+
+/* -- Sticky action bar on phones ----------------------------------------- */
+.stickybar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 50;
+  display: none;
+  gap: 8px;
+  padding: 10px var(--gutter);
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--line);
+}
+.stickybar .btn { padding-block: 12px; }
+
+@media (max-width: 640px) {
+  .stickybar { display: flex; }
+  body { padding-bottom: 82px; }
+  .hero .actions { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
