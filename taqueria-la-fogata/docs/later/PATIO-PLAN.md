@@ -2,7 +2,7 @@
 
 The patio is the biggest check you'll write in this project and the asset that keeps paying after it's written. Two rules govern everything here:
 
-1. **The patio must be inside your licensed premises from day one.** (See the sequencing trap in [02-GEORGIA-LIQUOR-LICENSE.md](./02-GEORGIA-LIQUOR-LICENSE.md). This is the mistake that costs the most.)
+1. **The patio must be inside your licensed premises from day one.** (See the sequencing trap in [LIQUOR-LICENSE-KENNESAW.md](./LIQUOR-LICENSE-KENNESAW.md). This is the mistake that costs the most.)
 2. **Every dollar you don't spend building it is a dollar you don't have to earn back.** Your revenue forecast is a guess. Your build cost is a choice. Control the thing you control.
 
 ---

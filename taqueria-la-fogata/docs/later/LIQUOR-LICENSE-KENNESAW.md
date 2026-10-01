@@ -31,11 +31,13 @@ Note the two different things both called a "permit," because people mix them up
 
 You need the license once. You need a pouring permit for **every single person who serves a drink**, and a new one every time you hire.
 
-### Micheladas: you may already be able to sell these
+### Micheladas: already covered
 
-A michelada is beer plus non-alcoholic mixers. You have a beer license. In most Georgia jurisdictions, adding Clamato, lime, hot sauce and a Tajín rim to beer you're licensed to sell is still service of that beer.
+You already sell micheladas under your existing beer license, so this isn't an open question. Noting it here only because it establishes a useful precedent for the conversation with the city: beer plus non-alcoholic mixers sits inside a malt beverage license.
 
-**I have not confirmed this for Kennesaw specifically, and you should not launch it until you have.** It is question #1 in the phone script below. If the answer is yes — and it very likely is — you start earning drink margins next month instead of in 2027. See [01-QUICK-WINS-90-DAYS.md](./01-QUICK-WINS-90-DAYS.md).
+What that does **not** cover is tequila. A margarita is distilled spirits, and that's the whole reason this document exists.
+
+For selling *more* micheladas — the attach rate, which is where the money actually is — see [05-SELL-MORE-PER-TICKET.md](../05-SELL-MORE-PER-TICKET.md).
 
 ---
 
@@ -115,7 +117,7 @@ Related: most Georgia jurisdictions require a patio where alcohol is served to b
 
 Then work this list. Write the answers in the blanks.
 
-1. **"We'd like to start selling micheladas — beer mixed with Clamato, lime and hot sauce. Is that allowed under our current beer license, or does it need something additional?"**
+1. **"We currently sell beer and micheladas. What exactly do we need to add in order to serve tequila-based cocktails like margaritas?"**
    → _______________________________________________
 
 2. **"What's the exact annual fee for a distilled spirits pouring license for a restaurant?"** (I've seen ~$3,000 quoted by a third party — ask them to confirm, and ask about any separate application or investigation fee.)
@@ -220,7 +222,6 @@ Being straight with you about the limits of this research. Several City of Kenne
 |---|---|
 | Kennesaw's exact pouring license fee | **Unconfirmed.** ~$3,000/yr is a third-party aggregator figure. Verify by phone. |
 | Whether Kennesaw requires council approval / public hearing | **Unconfirmed.** Could add 30–60 days. |
-| Whether micheladas are covered by your existing beer license | **Unconfirmed.** Very likely yes. Ask before launching. |
 | Exact patio enclosure specs for alcohol service | **Unconfirmed.** |
 | Kennesaw's Liquor by the Drink tax rate | **Unconfirmed.** Commonly 3% in Georgia municipalities. |
 | Georgia state license fee for on-premise consumption | **Unconfirmed.** Modest relative to the local fee. |

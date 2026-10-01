@@ -1,136 +1,138 @@
-# Taqueria La Fogata — Growth & Expansion Plan
+# Taqueria La Fogata
 
 **Kennesaw, Georgia · Family-owned**
-**Goal: margaritas and a 15–20 seat patio by summer 2027.**
+
+A sales growth plan and a working website for a running taqueria.
+
+**Goal right now: raise sales.** More people coming by, more of them trying the micheladas, the birria tacos, the elotes — the whole menu.
+
+Liquor and the patio are still the long-term plan, but they're not the priority. They live in [`docs/later/`](./docs/later/).
 
 ---
 
-## The short version
+## Start here
 
-You told me the real problem: **you're busy at peak and dead the rest of the day.**
+**→ [docs/00-THE-PLAN.md](./docs/00-THE-PLAN.md)**
 
-That means you don't have a customer problem. People already know you and already like the food. You have a **clock problem** — you're paying rent, power and insurance on hours that earn nothing.
+Then the two that do the work:
 
-So this plan isn't about finding new customers. It's about three things you already control:
-
-1. **Selling more to the people already walking in** — micheladas now, margaritas in 2027
-2. **Being open for business during hours you already pay for** — the patio, happy hour
-3. **Being findable** — Google, a website, TikTok
-
-Margaritas and a patio are exactly the right instinct, because drinks earn nearly the same profit as a taco plate **without touching your kitchen**, and a patio gives people a reason to *stay* instead of just eat. Together they turn 4pm on a Wednesday into a business you don't currently have.
+- **[docs/01-CONTENT-PLAYBOOK.md](./docs/01-CONTENT-PLAYBOOK.md)** — what actually works on TikTok and Reels for a taqueria, built from real outlier data
+- **[docs/02-30-DAY-SHOT-LIST.md](./docs/02-30-DAY-SHOT-LIST.md)** — 30 videos, already specified. Film and post.
 
 ---
 
-## Start here: the three things to do this month
+## The finding worth leading with
 
-| # | Do this | Costs | Earns |
-|---|---|---|---|
-| 1 | **Call the Kennesaw Business License Office** and ask the 11 questions in the licensing guide | $0 | Replaces every guess in this plan with a fact |
-| 2 | **Claim and build your Google Business Profile** | $0 | The highest-return free thing available to a local restaurant |
-| 3 | **Launch micheladas** (once the city confirms you can) | ~$60 | **+$2.32 profit on every beer you already sell** |
+I pulled real outlier data — Instagram Reels and TikToks from the last 30 days that massively beat their own creator's median — for birria/taqueria and michelada content. The pattern that matters most:
 
-That third one is the headline. A $5 beer costs you $0.92 and makes $4.08. The same beer built into an $8 michelada costs $1.60 and makes $6.40. **You add $2.32 of profit for 68 cents of Clamato and chile salt — with no license, no permit, and no construction.** At 25 a week that's about $3,000 a year, starting next month.
+**The biggest breakouts came from the smallest accounts.**
 
-It's also your free experiment: if customers will pay $8 for a beer drink, the margarita plan is validated by real behavior before you spend $40,000.
+| Account | Followers | Normal video | Breakout | Multiple |
+|---|---|---|---|---|
+| **@fiestatequilabar** | **4,000** | 2,600 views | **1.9M** | **706×** |
+| @tmcheladas | 52,700 | 8,300 views | 1.8M | 216× |
+| @chatostacos_ | 32,000 | 16,800 views | 2.7M | 161× |
+| @milindobadiraguato | 33,000 | 33,100 views | 3.8M | 115× |
+
+A tequila bar with **four thousand followers** put up a video that did **1.9 million views**. A michelada vendor whose normal post gets 8,300 views hit 1.8 million. None of them broke out because they had a following — they broke out because they posted the right kind of video, enough times.
+
+**Your follower count is not what's standing between you and reach.** The number of good attempts is. That's the entire case for the 30-day shot list.
+
+What the winners had in common, all of it achievable with a phone:
+
+- **The first second is hands already working** — never a face saying hello
+- **Music only, no talking** — regional Mexican audio (La Zenda Norteña, Los Ángeles Azules both showed up)
+- **The camera doesn't move** — @tmcheladas did 216× on a static phone
+- **Address and hours in the caption, every post** — every restaurant in the data did this
+- **Cheese pull, dip, or griddle sizzle** as the money shot
+- **A question or challenge in the caption** — that's what the 706× video did
+- Effort rating across nearly all of them: **"within an hour"**
+
+Full breakdown and sources in [docs/01-CONTENT-PLAYBOOK.md](./docs/01-CONTENT-PLAYBOOK.md).
 
 ---
 
-## The documents
+## The three levers
 
-| Read this | When |
-|---|---|
-| **[00-STRATEGY.md](./docs/00-STRATEGY.md)** | **Start here.** Why this plan, what could go wrong. |
-| [01-QUICK-WINS-90-DAYS.md](./docs/01-QUICK-WINS-90-DAYS.md) | **This week.** Money with no license and no construction. |
-| [02-GEORGIA-LIQUOR-LICENSE.md](./docs/02-GEORGIA-LIQUOR-LICENSE.md) | Before you call the city. Has the exact phone scripts. |
-| [03-PATIO-PLAN.md](./docs/03-PATIO-PLAN.md) | Budget, layout, and the four things that can stop a patio. |
-| [04-MONEY-MODEL.md](./docs/04-MONEY-MODEL.md) | Every number, where it came from, and the honest bad case. |
-| [05-CONTENT-ENGINE.md](./docs/05-CONTENT-ENGINE.md) | 90 days of TikTok videos, hooks in Spanish and English. |
-| [06-GOOGLE-BUSINESS-PROFILE.md](./docs/06-GOOGLE-BUSINESS-PROFILE.md) | **This week.** Free, and worth the most. |
-| [07-ROADMAP-TO-SUMMER-2027.md](./docs/07-ROADMAP-TO-SUMMER-2027.md) | Month by month, backward from opening day. |
-| [08-TRACKING.md](./docs/08-TRACKING.md) | Six numbers, ten minutes a Sunday. |
-| **[website/](./website/)** | A working website. Edit one file and publish it. |
+| Lever | Why | Doc |
+|---|---|---|
+| **1. Be findable** | Most customers type "tacos near me" and pick from the list. Free, one afternoon, highest return on this page. | [03-GOOGLE-BUSINESS-PROFILE.md](./docs/03-GOOGLE-BUSINESS-PROFILE.md) |
+| **2. Content that reaches Cobb County** | A million views from Ohio sells nothing. 2,000 local views fills the room. | [01-CONTENT-PLAYBOOK.md](./docs/01-CONTENT-PLAYBOOK.md) · [02-30-DAY-SHOT-LIST.md](./docs/02-30-DAY-SHOT-LIST.md) |
+| **3. Bigger tickets** | A customer who orders 3 tacos is worth half of one who orders 3 tacos, an elote and a michelada. | [04-TURN-VIEWS-INTO-VISITS.md](./docs/04-TURN-VIEWS-INTO-VISITS.md) · [05-SELL-MORE-PER-TICKET.md](./docs/05-SELL-MORE-PER-TICKET.md) |
+
+---
+
+## The weekly rhythm — four hours
+
+| When | What | Time |
+|---|---|---|
+| Slow afternoon | Batch-film 8–12 clips = two weeks of posts | 45 min |
+| Daily | Post one. Reply to comments in the first hour. | 15 min |
+| Weekly | Google profile: 3 photos, 1 post, reply to reviews | 15 min |
+| Sunday | Write down five numbers | 10 min |
+
+Do only the first two rows and you're still ahead of nearly every restaurant in Kennesaw, because almost none of them post consistently.
+
+---
+
+## Money available without a single new customer
+
+Three sentences asked consistently, from [05-SELL-MORE-PER-TICKET.md](./docs/05-SELL-MORE-PER-TICKET.md):
+
+| Lever | Per week | Per year |
+|---|---|---|
+| Michelada attach rate 20% → 50% (at 100 beers/wk) | +$70 | +$3,600 |
+| 30 more elotes a week | +$84 | +$4,400 |
+| 10 combos instead of taco-only orders | +$77 | +$4,000 |
+| **Total** | **+$231** | **~$12,000** |
+
+The margin behind the first row: a $5 beer makes you about **$4.08**. The same beer as an $8 michelada makes about **$6.40** — **+$2.32** for roughly 68¢ of Clamato, lime and Tajín. You already sell them, so the lever isn't launching, it's the **attach rate**: what share of beers go out as micheladas, and whether anybody is asking.
+
+> **"¿Se la preparo como michelada?"**
+
+Every beer. Every time.
 
 ---
 
 ## The website
 
-Mobile-first, free to host, and ready to go. It shows whether you're open right now (in Georgia time), has a big tap-to-call button, your full menu, and an **English/Spanish toggle** — which your market in Kennesaw will use and which almost no small restaurant site bothers with.
+**[`website/`](./website/)** — mobile-first, free to host, no dependencies.
 
-**You edit one file — `website/site-config.js` — with your real phone, address, hours and menu.**
+Shows whether you're open right now (in Georgia time, so it's right for someone checking from out of state), big tap-to-call button, full menu, and an **English/Spanish toggle** your Kennesaw market will use.
 
-⚠️ **The contact details and menu in it right now are placeholders.** The phone number is a fake 555 number and the address is made up, on purpose. Replace them before the site goes anywhere near a customer. Instructions: [website/README.md](./website/README.md).
+**You edit one file: `website/site-config.js`.**
 
----
+⚠️ **The phone number and address in it are placeholders** — a fake 555 number and an example street, on purpose. Replace them before the site reaches a customer. Setup in [website/README.md](./website/README.md).
 
-## What this costs and what it returns
-
-| | |
-|---|---|
-| Build the whole thing (patio + bar + licensing) | **$26,000 cheap → $73,000 nice** |
-| What to actually plan on | **$35,000–45,000** |
-| Added gross profit, year 1 (discounted, realistic) | **~$50,000** |
-| Net after license, insurance and added labor | **~$26,000** |
-| **Payback** | **~18 months** |
-
-An 18-month payback on restaurant capital is good — equipment is normally judged against two to three years. And the patio is a permanent asset that raises what the business is worth.
-
-**But the most important financial sentence in this plan is this:** you cannot control how many people sit on your patio in August 2027, and you *completely* control whether you spend $26,000 or $73,000 building it. Umbrellas instead of a pergola. Pavers instead of poured concrete. Used furniture from restaurant auctions. **Keep the build cheap** — that's the decision that decides whether this works.
-
-Full math, including the bad case, in [04-MONEY-MODEL.md](./docs/04-MONEY-MODEL.md).
+This matters more than it looks: the real customer path is *see video → Google the name → check photos and hours → drive over*. Content creates the intent; your Google profile and website **close** it. Fix only the content and you leak most of the customers it creates.
 
 ---
 
-## ⚠️ The one mistake that would cost you the most
-
-**Your liquor license covers a specific, city-approved "licensed premises."**
-
-If you get licensed for the indoor dining room in early 2027 and *then* build the patio, the patio is not covered. You cannot legally serve a margarita on it. You'd have to go back to the city and amend the premises — new site plan, new review, new fee, more waiting, possibly another council hearing.
-
-**So on your very first phone call, tell the city you are planning both a pouring license and a new patio, and ask how to get them reviewed together.** Put the patio on the site plan you submit with the alcohol application, even though it isn't built yet.
-
-This is entirely avoidable and it is the single most expensive mistake available to you in this project.
-
----
-
-## Honest limits on this research
-
-Georgia is a **local-control** state — Kennesaw's own ordinance governs you, not a statewide rulebook — and several City of Kennesaw and Georgia Department of Revenue pages were blocked from the network I researched on. So some specifics are unconfirmed, and they're all flagged as such in [02-GEORGIA-LIQUOR-LICENSE.md](./docs/02-GEORGIA-LIQUOR-LICENSE.md), including:
-
-- Kennesaw's exact pouring license fee (the ~$3,000 figure is third-party, not the city)
-- Whether a new license needs mayor and council approval (could add 30–60 days)
-- Whether micheladas are covered by your current beer license (very likely yes, but ask)
-- The exact patio enclosure spec for serving alcohol outdoors
-
-**One afternoon of phone calls replaces all of it with facts.** That's the highest-value hour in this entire project, and it costs nothing. Everything in the plan is built so you make those calls *before* you spend a dollar.
-
-The volume assumptions in the money model are mine, not yours — they're marked **[ASSUMPTION]** and the whole point of [08-TRACKING.md](./docs/08-TRACKING.md) is to replace them with your real numbers by December.
-
----
-
-## The timeline
+## Everything here
 
 ```
-Oct–Dec 2026   Phone calls, Google profile, micheladas, happy hour,
-               start counting. Spend almost nothing.
-               → DECISION POINT in December, on real data
-
-Jan–Apr 2027   Permits, alcohol application, patio construction,
-               staff training, licenses issued
-
-May 2027       Soft open: patio on beer and micheladas while the
-               liquor license finishes. Find the problems cheaply.
-
-Jun 5, 2027    Full open — patio + margaritas, into summer
+docs/
+  00-THE-PLAN.md                 ← start here
+  01-CONTENT-PLAYBOOK.md         ← what works, from real outlier data
+  02-30-DAY-SHOT-LIST.md         ← 30 videos, already decided
+  03-GOOGLE-BUSINESS-PROFILE.md  ← free local discovery
+  04-TURN-VIEWS-INTO-VISITS.md   ← closing the view→customer gap
+  05-SELL-MORE-PER-TICKET.md     ← micheladas, elotes, combos
+  06-TRACKING.md                 ← five numbers, Sundays
+  later/                         ← liquor + patio, summer 2027
+website/                         ← the site; edit site-config.js
 ```
-
-The quick wins in Phase 1 should throw off **$8,000–14,000 of added gross profit** over those 20 months. Not enough to fund the build — but enough to pay for the licensing, the CPA, the survey and the permits without borrowing. That's their job.
 
 ---
 
-## Why this is a plan and not a gamble
+## What to expect, honestly
 
-You're not betting on demand you don't have. You're harvesting demand you're currently throwing away at 3pm on a Wednesday.
+**Weeks 1–4.** Views are small. Feels like it isn't working. It is — you're building a library and teaching the algorithm what your account is. The job here is **not quitting**.
 
-Every expensive step is gated behind a cheap one that tests it first. Micheladas test whether your customers buy drinks before you build a bar. Happy hour tests whether people will come at 4pm before you pour a patio. The phone calls test whether the city will even allow this before you pay a surveyor.
+**Weeks 4–8.** One video beats the others. That's your most valuable piece of information. Make three more exactly like it.
 
-By the December decision point you'll know whether to spend $15,000, $40,000, or nothing at all — and you'll know it from your own numbers instead of mine.
+**Weeks 8–12.** You start hearing "I saw you on TikTok" at the register. Write it down every time — that's the real number.
+
+**After that.** The breakout. Month 2 or month 7; nobody can tell you which. The data says it's about volume and consistency, not follower count.
+
+This will not produce a line out the door next Tuesday. It compounds, and the upsell work pays immediately while the content builds.

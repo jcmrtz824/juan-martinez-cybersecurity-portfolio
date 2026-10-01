@@ -28,10 +28,10 @@ Most of these tasks can slip a few weeks without hurting anything. Four cannot:
 Nothing expensive. You're gathering facts and earning money from things you already have.
 
 ### October 2026
-- [ ] **Call 1** — Business License Office. Michelada answer, real license fee, patio-together answer, council requirement.
+- [ ] **Call 1** — Business License Office. Real license fee, patio-together answer, council requirement.
 - [ ] Check felony/probation eligibility for everyone who'll be named on the license. ← *free, and the one thing that could stop the whole plan*
 - [ ] Claim and fully build the Google Business Profile. 20+ photos.
-- [ ] **Launch micheladas** once the city confirms.
+- [ ] **Raise the michelada attach rate** — you already sell them; the lever is how often staff offer one. See [05-SELL-MORE-PER-TICKET.md](../05-SELL-MORE-PER-TICKET.md).
 - [ ] Start the weekly numbers sheet. **Begin the 2–5pm cover baseline.**
 - [ ] Open a separate savings account for the build. Put something in it every week.
 
@@ -127,7 +127,7 @@ Phase 1 and 2 should generate roughly **$8,000–14,000 of added gross profit** 
 
 ## Three ways to tell it's going wrong early
 
-**1. Micheladas don't sell.** If you can't move 20 micheladas a week at $8 by December, your customers may not be drink buyers. Don't conclude the plan is dead — but shrink the bar, build the cheap patio, and lean harder on food and dead-hour food promotions.
+**1. The michelada attach rate stays low.** If only a small share of your beer drinkers will pay $8 for a michelada — something you can measure today, since you already sell them — your customers may not be drink buyers. Don't conclude the plan is dead, but shrink the bar budget, build the cheap patio, and lean harder on food.
 
 **2. The parking math fails.** If Zoning says 20 outdoor seats require spaces you don't have, you need a variance, a shared-parking agreement, or a 10–12 seat patio. Find this out in **November**, not in January after you've paid for a survey.
 

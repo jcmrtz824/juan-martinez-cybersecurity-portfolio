@@ -79,7 +79,7 @@ DNS takes a few hours to a day to settle. HTTPS is free and automatic.
 
 The website only earns its keep if people reach it.
 
-- [ ] **Google Business Profile** → Website field. (This is the big one. See [../docs/06-GOOGLE-BUSINESS-PROFILE.md](../docs/06-GOOGLE-BUSINESS-PROFILE.md))
+- [ ] **Google Business Profile** → Website field. (This is the big one. See [../docs/03-GOOGLE-BUSINESS-PROFILE.md](../docs/03-GOOGLE-BUSINESS-PROFILE.md))
 - [ ] TikTok bio
 - [ ] Instagram bio
 - [ ] Facebook page

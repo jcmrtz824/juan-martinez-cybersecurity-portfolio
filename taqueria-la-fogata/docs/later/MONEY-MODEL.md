@@ -45,7 +45,7 @@ Every number in this plan, where it came from, and how to replace it with yours.
 | $8.00 | $6.40 | **80%** |
 | $9.00 | $7.40 | 82% |
 
-### The michelada upgrade — this is the important table
+### The michelada upgrade — the attach-rate table
 
 This compares the *same bottle of beer* sold two ways:
 
@@ -55,7 +55,7 @@ This compares the *same bottle of beer* sold two ways:
 | Costs you | $0.92 | $1.60 | +$0.68 |
 | **Gross profit** | **$4.08** | **$6.40** | **+$2.32** |
 
-**You are adding $2.32 of profit for 68 cents of mixers.** No license, no construction.
+**Every beer you convert adds $2.32 of profit for 68 cents of mixers.** You already sell these — the lever is the attach rate, not the launch. See [05-SELL-MORE-PER-TICKET.md](../05-SELL-MORE-PER-TICKET.md).
 
 What that's worth per year at different volumes **[ASSUMPTION — pick your row]**:
 
@@ -247,13 +247,13 @@ That is the bad case: you'd be roughly breaking even on operations and sitting o
 
 ## Part 6: The six numbers that decide this
 
-Track these starting now. Details in [08-TRACKING.md](./08-TRACKING.md).
+Track these starting now. Details in [06-TRACKING.md](../06-TRACKING.md).
 
 1. **Food % of total sales** — must stay above 50%. This is a license requirement, not a preference.
 2. **Covers in the dead window (2–5pm)** — your baseline. You cannot prove the patio worked without it.
 3. **Drinks per cover** — today it's beer-only. Watch it move as you add micheladas.
 4. **Average ticket** — the number the whole plan is trying to raise.
-5. **Michelada count/week** — your free, live experiment in whether customers want drinks.
+5. **Michelada attach rate** — micheladas as a share of beers. You already sell these, so this is live evidence of whether your customers buy drinks, available now and for free.
 6. **Where customers say they found you** — tells you whether Google or TikTok is doing the work.
 
 ---
@@ -263,5 +263,5 @@ Track these starting now. Details in [08-TRACKING.md](./08-TRACKING.md).
 Everything marked **[ASSUMPTION]** is a guess I made so the model would run. The three that matter most, in order:
 
 1. **Dead-window covers.** Count them for two weeks. If it's 4/day, not 12, the patio case is weaker and you should build cheaper. If it's 20, build bigger.
-2. **Michelada take rate.** Launch them next month. If customers don't buy a $8 beer drink, they may not buy a $10 margarita, and you should know that *before* spending $40,000.
+2. **Michelada attach rate.** You already sell micheladas, so this evidence already exists — go count it. If a solid share of your beer drinkers pay $8 for a michelada, the margarita case is strong. If almost nobody does, they may not pay $10 for a margarita either, and you want to know that *before* spending $40,000.
 3. **Your real beer and lime invoice prices.** Pull last month's invoices and correct my per-unit costs. Takes 20 minutes and makes every table above yours instead of mine.
