@@ -1,6 +1,6 @@
 # Restaurant website
 
-Existing bilingual, static site reused from PR #4. **Review version; not approved for public launch.** Confirmed online phone: (770) 794-2122. Owner-confirmed address: 2650 Cobb Parkway NW, Suite 2, Kennesaw, GA 30152. Address-based directions are enabled. Hours, current menu/prices and social ownership require confirmation. Unknown details are omitted; promotions and expansion are off.
+Existing bilingual, static site reused from PR #4. **Review version; not approved for public launch.** Confirmed online phone: (770) 794-2122. Owner-confirmed address: 2650 Cobb Parkway NW, Suite 2, Kennesaw, GA 30152. Address-based directions are enabled. Owner-confirmed hours: Monday–Friday 10am–8pm; Saturday–Sunday 10am–9pm, Eastern time. The open/closed badge is enabled. Current menu/prices and social ownership require confirmation. Unknown details are omitted; promotions and expansion are off.
 
 See [launch review and sources](../docs/LAUNCH-READINESS.md) for the evidence, outstanding owner input and separate-repository migration instructions.
 

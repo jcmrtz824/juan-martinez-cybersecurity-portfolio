@@ -13,7 +13,7 @@ function render(iso, configure = () => {}) {
   return {nodes,root,click:id=>listeners.click({target:{id}})};
 }
 let tests = 0;
-const baseline = render('2026-10-26T16:00:00Z');
+const baseline = render('2026-10-26T16:00:00Z',c=>{c.verified.hours=false;c.hours={};});
 assert.equal(baseline.nodes.status.dataset.open,'unknown');
 assert(baseline.nodes.actions.innerHTML.includes('https://www.google.com/maps/dir/'));
 assert(baseline.nodes['find-body'].innerHTML.includes('2650 Cobb Parkway NW, Suite 2'));
@@ -32,6 +32,10 @@ for (const [time,open] of [['2026-10-26T13:59:00Z',false],['2026-10-26T14:00:00Z
 const overnight = c => {c.verified.hours=true;c.hours={fri:{open:'18:00',close:'02:00'},sat:{open:null,close:null}};};
 for (const [time,open] of [['2026-10-23T05:00:00Z',false],['2026-10-23T22:00:00Z',true],['2026-10-24T05:59:00Z',true],['2026-10-24T06:00:00Z',false],['2026-10-24T22:00:00Z',false]]) {
   assert.equal(render(time,overnight).nodes.status.dataset.open,open?'yes':'no',time);tests++;
+}
+// Actual owner-confirmed weekend schedule across the DST transition.
+for (const [time,open] of [['2026-11-01T00:59:00Z',true],['2026-11-01T01:00:00Z',false],['2026-11-02T01:59:00Z',true],['2026-11-02T02:00:00Z',false]]) {
+  assert.equal(render(time).nodes.status.dataset.open,open?'yes':'no',time); tests++;
 }
 const approvals = render('2026-10-26T16:00:00Z',c=>{c.happyHour.show=true;c.comingSoon.show=true;});
 assert(approvals.nodes.happyhour.hidden && approvals.nodes.coming.hidden);tests++;

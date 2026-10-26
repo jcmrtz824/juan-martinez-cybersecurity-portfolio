@@ -9,7 +9,7 @@ Reviewed October 26, 2026. **Not approved for public launch.** Existing implemen
 | Name / city / family ownership | User-provided project scope; existing project | Keep Taqueria La Fogata, Kennesaw, GA |
 | Telephone | Restaurantji, Yellow Pages, Zmenu, Allmenus agree on (770) 794-2122 | Replace 555 number, including metadata and regenerated preview. Corroborated online; no test call made |
 | Street / suite | Restaurantji and Zmenu show 2651 Cobb Pkwy NW; Yellow Pages shows 2650. Cobb Courier's June 2025 inspection report gives 2650, suite 2. A historical Georgia DOR record gives 2651, suite 2 | Resolved by Juan on October 26, 2026: **2650 Cobb Parkway NW, Suite 2, Kennesaw, GA 30152**. Address and address-based Google Maps directions enabled; exact business pin not yet confirmed |
-| Weekly hours | Restaurantji (page says updated Oct 10, 2026), Zmenu: Mon–Fri 10am–8pm, Sat–Sun 10am–9pm. Yellow Pages: daily 10am–9pm. MenuPix: Mon–Wed/Sun until 9pm, Thu–Sat until 10pm | Withhold schedule; display bilingual call-for-hours message. Never interpret missing hours as closed |
+| Weekly hours | Restaurantji (page says updated Oct 10, 2026), Zmenu: Mon–Fri 10am–8pm, Sat–Sun 10am–9pm. Yellow Pages: daily 10am–9pm. MenuPix: Mon–Wed/Sun until 9pm, Thu–Sat until 10pm | Resolved by Juan on October 26, 2026: **Monday–Friday 10am–8pm; Saturday–Sunday 10am–9pm**, America/New_York. Weekly table, open/closed badge and structured metadata enabled; holiday exceptions not supplied |
 | Menu / pricing | Allmenus and SinglePlatform have matching-address menus but no reliable current owner approval; Restaurantji references tacos/menudo. Menu photos could not be retrieved | Remove entire sample menu from runtime, including popular/dietary/ingredient claims; request current owner menu. Do not copy third-party prices or claim online ordering is available |
 | Social / Google links | Yellow Pages links a Facebook page, but ownership/current use could not be checked. No verified Kennesaw Instagram/TikTok handle found. Matching names belong to many other restaurants | Remove guessed TikTok; leave social links blank. Do not call the candidate Facebook link official |
 | Promotions / expansion | No specific authorization to offer the discount or promise patio/cocktails/summer 2027 | Both disabled and require explicit approval flags to render; sample promotional text removed |
@@ -33,14 +33,14 @@ Sources checked:
 
 `usingPlaceholders` is false because fabricated content was removed, **not because all business facts are confirmed**. Separate `verified` fields control rendering. `launchApproved` stays false. Review notice and `noindex, nofollow` remain. Noindex is a search hint, not access control; use local review until a private hosting route is selected.
 
-The street and suite are owner-confirmed. Unknown hours/menu/social details never appear as customer facts. Address metadata is included; unverified schedules and menu remain absent from schema.org metadata. Directions use the confirmed address, without claiming a verified Google business pin. `build-metadata.js` generates static JSON-LD from confirmed config rather than a separately maintained copy. Regenerate metadata and preview after every content edit.
+The street and suite are owner-confirmed. Unknown menu/social details never appear as customer facts. Address metadata is included; the confirmed weekly schedule is included and the unverified menu remains absent from schema.org metadata. Directions use the confirmed address, without claiming a verified Google business pin. `build-metadata.js` generates static JSON-LD from confirmed config rather than a separately maintained copy. Regenerate metadata and preview after every content edit.
 
 Existing language/theme controls, phone CTAs, copy behavior and layout are reused. Overnight status now checks the previous day's interval, including when the following day is closed. If timezone support fails, status becomes unknown instead of using the visitor's local time. Today highlighting refreshes at midnight.
 
 ## Verification
 
 - JavaScript syntax checks and review-content validation pass.
-- 14 regression scenario groups pass: confirmed-address rendering/directions; unknown data; Spanish/theme controls; opening/closing boundaries; Eastern standard/daylight time; previous-day overnight hours; closed days; unapproved offer suppression.
+- 18 regression scenario groups pass: owner-confirmed weekend closing boundaries across DST; confirmed-address rendering/directions; unknown data; Spanish/theme controls; opening/closing boundaries; Eastern standard/daylight time; previous-day overnight hours; closed days; unapproved offer suppression.
 - Actual browser: English and Spanish rendering, language/theme toggles, visible phone URL, absent promotions/social/sample menu (directions were withheld during the initial review and enabled after owner address confirmation), phone-copy fallback (clipboard unavailable; correct number selected for manual copying), language persistence and visual layout checked. Browser-extension diagnostics are unrelated to this app.
 - Release validation intentionally refuses the current config because owner review is incomplete.
 - Real phone dialing, a confirmed map pin, current social ownership, verified prices, mobile-device testing and a deployed HTTPS URL remain outstanding.
@@ -48,7 +48,7 @@ Existing language/theme controls, phone CTAs, copy behavior and layout are reuse
 ## Owner input needed
 
 1. **Address resolved:** Juan confirmed 2650 Cobb Parkway NW, Suite 2 on October 26, 2026. Address-based directions are enabled. An exact business-pin/share URL and customer entrance remain to be checked.
-2. Current seven-day hours, including closed days and any holiday exceptions. If special hours differ, update the schedule for those dates before relying on the badge.
+2. **Regular hours resolved:** Juan confirmed Monday–Friday 10am–8pm; Saturday–Sunday 10am–9pm on October 26, 2026. Holiday exceptions are not supplied. If special hours differ, update the schedule for those dates before relying on the badge.
 3. Current menu: items, prices, portions, availability and any dietary/ingredient wording. A current menu photo is sufficient to start transcription.
 4. Official social profile URLs, or confirm that there are none. Optional links may remain absent for launch.
 5. Confirm the listed phone still reaches the restaurant, then approve reviewed business content. No promotions or expansion announcements are needed for launch.

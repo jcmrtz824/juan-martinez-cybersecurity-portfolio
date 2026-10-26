@@ -6,7 +6,7 @@
 window.FOGATA = {
   usingPlaceholders: false,
   launchApproved: false,
-  verified: { phone: true, address: true, hours: false, menu: false, social: false },
+  verified: { phone: true, address: true, hours: true, menu: false, social: false },
   name: "Taqueria La Fogata",
   tagline: {
     en: "Family-owned tacos in Kennesaw, Georgia",
@@ -24,8 +24,16 @@ window.FOGATA = {
   mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=2650%20Cobb%20Parkway%20NW%2C%20Suite%202%2C%20Kennesaw%2C%20GA%2030152",
   // Do not assume a matching business name means the account is ours.
   social: { tiktok: "", instagram: "", facebook: "", google: "" },
-  // Unknown is not closed. All seven days need owner confirmation.
-  hours: {},
+  // Regular weekly hours confirmed by Juan on 2026-10-26; Eastern time.
+  hours: {
+    mon: { open: "10:00", close: "20:00" },
+    tue: { open: "10:00", close: "20:00" },
+    wed: { open: "10:00", close: "20:00" },
+    thu: { open: "10:00", close: "20:00" },
+    fri: { open: "10:00", close: "20:00" },
+    sat: { open: "10:00", close: "21:00" },
+    sun: { open: "10:00", close: "21:00" }
+  },
   // Offers and expansion require separate, explicit business approval.
   happyHour: { show: false, approved: false },
   comingSoon: { show: false, approved: false },
