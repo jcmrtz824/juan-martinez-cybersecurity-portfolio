@@ -6,7 +6,7 @@
 window.FOGATA = {
   usingPlaceholders: false,
   launchApproved: false,
-  verified: { phone: true, address: false, hours: false, menu: false, social: false },
+  verified: { phone: true, address: true, hours: false, menu: false, social: false },
   name: "Taqueria La Fogata",
   tagline: {
     en: "Family-owned tacos in Kennesaw, Georgia",
@@ -19,9 +19,9 @@ window.FOGATA = {
   // Corroborated by Restaurantji, Yellow Pages, Zmenu and Allmenus, 2026-10-26.
   // Directory verification is not a test call or owner confirmation.
   phone: "(770) 794-2122",
-  // Conflicting listings: 2650 vs 2651 Cobb Pkwy NW. Do not guess.
-  address: { street: "", city: "Kennesaw", state: "GA", zip: "30152" },
-  mapsUrl: "",
+  // Customer-facing address and suite confirmed by Juan on 2026-10-26.
+  address: { street: "2650 Cobb Parkway NW, Suite 2", city: "Kennesaw", state: "GA", zip: "30152" },
+  mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=2650%20Cobb%20Parkway%20NW%2C%20Suite%202%2C%20Kennesaw%2C%20GA%2030152",
   // Do not assume a matching business name means the account is ours.
   social: { tiktok: "", instagram: "", facebook: "", google: "" },
   // Unknown is not closed. All seven days need owner confirmation.

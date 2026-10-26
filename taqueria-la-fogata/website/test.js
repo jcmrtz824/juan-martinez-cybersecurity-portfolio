@@ -15,7 +15,11 @@ function render(iso, configure = () => {}) {
 let tests = 0;
 const baseline = render('2026-10-26T16:00:00Z');
 assert.equal(baseline.nodes.status.dataset.open,'unknown');
-assert(!baseline.nodes.actions.innerHTML.includes('maps')); assert(baseline.nodes.actions.innerHTML.includes('tel:+17707942122'));
+assert(baseline.nodes.actions.innerHTML.includes('https://www.google.com/maps/dir/'));
+assert(baseline.nodes['find-body'].innerHTML.includes('2650 Cobb Parkway NW, Suite 2'));
+const unknownAddress = render('2026-10-26T16:00:00Z',c=>{c.verified.address=false;c.address.street='';c.mapsUrl='';});
+assert(!unknownAddress.nodes.actions.innerHTML.includes('maps'));
+tests++; assert(baseline.nodes.actions.innerHTML.includes('tel:+17707942122'));
 assert.equal(baseline.nodes['menu-body'].innerHTML, '');
 assert.equal(baseline.nodes.happyhour.hidden,true); assert.equal(baseline.nodes.coming.hidden,true);
 baseline.click('lang-toggle'); assert.equal(baseline.root.lang,'es'); assert(baseline.nodes.status.textContent.includes('Llámanos'));

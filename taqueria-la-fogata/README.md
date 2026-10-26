@@ -2,7 +2,7 @@
 
 Family-owned restaurant in Kennesaw, Georgia. This reuses the website and sales-planning work from [portfolio PR #4](https://github.com/jcmrtz824/juan-martinez-cybersecurity-portfolio/pull/4).
 
-**Website status: review only, not approved for launch.** Fake contact information, sample prices, guessed social accounts and unapproved offers/expansion text have been removed. The corroborated phone is installed. Conflicting address/hours and a current menu still need owner input.
+**Website status: review only, not approved for launch.** Fake contact information, sample prices, guessed social accounts and unapproved offers/expansion text have been removed. The corroborated phone and owner-confirmed address (2650 Cobb Parkway NW, Suite 2) are installed. Current hours and menu still need owner input.
 
 - [Launch evidence, validation and deployment plan](docs/LAUNCH-READINESS.md)
 - [Website editing and checks](website/README.md)
