@@ -407,3 +407,8 @@ footer p { margin: 0 0 4px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+/* Hidden sections remain hidden even when component styles set display. */
+[hidden] { display: none !important; }
+.skip-link { position: absolute; left: 1rem; top: -5rem; z-index: 100; padding: 1rem; background: var(--bg); }
+.skip-link:focus { top: 1rem; }

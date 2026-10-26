@@ -25,24 +25,30 @@
       openNow: "Open now", closedNow: "Closed",
       until: "until", opensAt: "Opens at", opensDay: "Opens",
       closedToday: "Closed today",
-      call: "Call", callUs: "Call to order", directions: "Directions", getDirections: "Get directions",
+      call: "Call", callUs: "Call us", directions: "Directions", getDirections: "Get directions",
       phone: "Phone", address: "Address", copy: "Copy", copied: "Copied",
       popular: "Popular", prices: "Prices and items may change. Call to confirm.",
-      followTiktok: "TikTok", followInsta: "Instagram", onGoogle: "Google",
+      followTiktok: "TikTok", followInsta: "Instagram", followFacebook: "Facebook", onGoogle: "Google",
       langLabel: "Español", themeLabel: "Theme",
-      placeholderWarn: "Preview only — the phone number, address and menu below are placeholders. Edit <code>site-config.js</code> before going live."
+      placeholderWarn: "Preview — business information is awaiting confirmation.",
+      reviewWarn: "Preview — business details are being confirmed before launch.",
+      hoursUnknown: "Call for today’s hours", menuUnknown: "Call us for the current menu, prices and availability.",
+      addressUnknown: "Call us to confirm the street address before visiting."
     },
     es: {
       menu: "Menú", hours: "Horario", find: "Dónde Estamos",
       openNow: "Abierto ahora", closedNow: "Cerrado",
       until: "hasta", opensAt: "Abre a las", opensDay: "Abre",
       closedToday: "Cerrado hoy",
-      call: "Llamar", callUs: "Llama para ordenar", directions: "Cómo llegar", getDirections: "Cómo llegar",
+      call: "Llamar", callUs: "Llámanos", directions: "Cómo llegar", getDirections: "Cómo llegar",
       phone: "Teléfono", address: "Dirección", copy: "Copiar", copied: "Copiado",
       popular: "Favorito", prices: "Precios y platillos pueden cambiar. Llámanos para confirmar.",
-      followTiktok: "TikTok", followInsta: "Instagram", onGoogle: "Google",
+      followTiktok: "TikTok", followInsta: "Instagram", followFacebook: "Facebook", onGoogle: "Google",
       langLabel: "English", themeLabel: "Tema",
-      placeholderWarn: "Vista previa — el teléfono, la dirección y el menú son de ejemplo. Edita <code>site-config.js</code> antes de publicar."
+      placeholderWarn: "Vista previa — los datos del negocio están pendientes de confirmación.",
+      reviewWarn: "Vista previa — estamos confirmando los datos antes de publicar.",
+      hoursUnknown: "Llámanos para consultar el horario de hoy", menuUnknown: "Llámanos para consultar el menú, los precios y la disponibilidad actuales.",
+      addressUnknown: "Llámanos para confirmar la dirección antes de visitarnos."
     }
   };
 
@@ -92,8 +98,7 @@
         timeZone: TZ, weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23"
       }).formatToParts(new Date());
     } catch (e) {
-      var d = new Date();
-      return { day: DAYS[d.getDay()], minutes: d.getHours() * 60 + d.getMinutes() };
+      return null; // Never use the visitor’s clock as Georgia time.
     }
     var get = function (type) {
       for (var i = 0; i < parts.length; i++) { if (parts[i].type === type) { return parts[i].value; } }
@@ -124,15 +129,20 @@
   /* Returns {open:bool, closesAt, opensAt, opensDayKey} for right now. */
   function openState() {
     var now = nowInGeorgia();
+    if (!C.verified || !C.verified.hours || !now) { return { unknown: true }; }
     var today = C.hours && C.hours[now.day];
-
+    var yesterday = DAYS[(DAYS.indexOf(now.day) + 6) % 7];
+    var previous = C.hours && C.hours[yesterday];
+    // After midnight belongs to the previous day's overnight interval.
+    if (previous && previous.open && previous.close) {
+      var po = toMinutes(previous.open), pc = toMinutes(previous.close);
+      if (pc <= po && now.minutes < pc) { return { open: true, closesAt: previous.close }; }
+    }
     if (today && today.open && today.close) {
       var o = toMinutes(today.open), c = toMinutes(today.close);
-      /* A close time earlier than the open time means it runs past midnight. */
-      var isOpen = c > o ? (now.minutes >= o && now.minutes < c)
-                         : (now.minutes >= o || now.minutes < c);
+      var isOpen = c > o ? (now.minutes >= o && now.minutes < c) : now.minutes >= o;
       if (isOpen) { return { open: true, closesAt: today.close }; }
-      if (now.minutes < o) { return { open: false, opensAt: today.open, opensDayKey: null }; }
+      if (now.minutes < o) { return { open: false, opensAt: today.open }; }
     }
 
     /* Find the next day that has hours. */
@@ -149,9 +159,9 @@
   function renderNotice() {
     var n = el("notice");
     if (!n) { return; }
-    if (!C.usingPlaceholders) { n.hidden = true; return; }
+    if (!C.usingPlaceholders && C.launchApproved) { n.hidden = true; return; }
     n.hidden = false;
-    n.innerHTML = '<div class="wrap">' + t("placeholderWarn") + "</div>";
+    n.innerHTML = '<div class="wrap">' + t(C.usingPlaceholders ? "placeholderWarn" : "reviewWarn") + "</div>";
   }
 
   function renderHero() {
@@ -164,6 +174,11 @@
   function renderStatus() {
     var st = openState();
     var box = el("status");
+    if (st.unknown) {
+      box.dataset.open = "unknown";
+      box.textContent = t("hoursUnknown");
+      return;
+    }
     var detail = "";
 
     if (st.open) {
@@ -184,10 +199,11 @@
 
   function actionButtons() {
     var tel = digits(C.phone);
-    return '<a class="btn btn--primary" href="tel:' + esc(tel) + '">' +
-             esc(t("call")) + " <small>" + esc(C.phone) + "</small></a>" +
-           '<a class="btn" href="' + esc(C.mapsUrl) + '" target="_blank" rel="noopener">' +
-             esc(t("directions")) + "</a>";
+    var phone = C.verified && C.verified.phone && tel ?
+      '<a class="btn btn--primary" href="tel:' + esc(tel.length === 10 ? "+1" + tel : tel) + '">' +
+      esc(t("call")) + " <small>" + esc(C.phone) + "</small></a>" : "";
+    return phone + (C.verified && C.verified.address && C.mapsUrl ?
+      '<a class="btn" href="' + esc(C.mapsUrl) + '" target="_blank" rel="noopener">' + esc(t("directions")) + "</a>" : "");
   }
 
   function renderActions() {
@@ -199,6 +215,11 @@
     el("menu-title").textContent = t("menu");
     el("menu-note").textContent = t("prices");
 
+    if (!C.verified || !C.verified.menu || !C.menu.length) {
+      el("menu-note").textContent = t("menuUnknown");
+      el("menu-body").innerHTML = "";
+      return;
+    }
     var html = C.menu.map(function (cat) {
       var items = (cat.items || []).filter(function (i) { return !i.hidden; }).map(function (i) {
         var tag = i.popular ? '<span class="tag">' + esc(t("popular")) + "</span>" : "";
@@ -217,7 +238,12 @@
 
   function renderHours() {
     el("hours-title").textContent = t("hours");
-    var todayKey = nowInGeorgia().day;
+    if (!C.verified || !C.verified.hours) {
+      el("hours-body").innerHTML = "<li>" + esc(t("hoursUnknown")) + "</li>";
+      return;
+    }
+    var clock = nowInGeorgia();
+    var todayKey = clock && clock.day;
 
     el("hours-body").innerHTML = ORDER.map(function (k) {
       var h = C.hours && C.hours[k];
@@ -230,7 +256,7 @@
 
   function renderHappyHour() {
     var sec = el("happyhour");
-    if (!C.happyHour || !C.happyHour.show) { sec.hidden = true; return; }
+    if (!C.happyHour || !C.happyHour.show || !C.happyHour.approved) { sec.hidden = true; return; }
     sec.hidden = false;
     sec.innerHTML = '<div class="wrap"><div class="card card--accent">' +
       '<p class="eyebrow">' + esc(s(C.happyHour.when)) + "</p>" +
@@ -240,7 +266,7 @@
 
   function renderComingSoon() {
     var sec = el("coming");
-    if (!C.comingSoon || !C.comingSoon.show) { sec.hidden = true; return; }
+    if (!C.comingSoon || !C.comingSoon.show || !C.comingSoon.approved) { sec.hidden = true; return; }
     sec.hidden = false;
     sec.innerHTML = '<div class="wrap"><div class="card card--accent">' +
       '<p class="eyebrow">' + esc(s(C.comingSoon.eyebrow)) + "</p>" +
@@ -253,14 +279,21 @@
     var a = C.address || {};
 
     var social = "";
-    if (C.social) {
+    if (C.social && C.verified && C.verified.social) {
       if (C.social.tiktok)    { social += '<a class="btn" href="' + esc(C.social.tiktok)    + '" target="_blank" rel="noopener">' + esc(t("followTiktok")) + "</a>"; }
       if (C.social.instagram) { social += '<a class="btn" href="' + esc(C.social.instagram) + '" target="_blank" rel="noopener">' + esc(t("followInsta")) + "</a>"; }
+      if (C.social.facebook) { social += '<a class="btn" href="' + esc(C.social.facebook) + '" target="_blank" rel="noopener">' + esc(t("followFacebook")) + "</a>"; }
       if (C.social.google)    { social += '<a class="btn" href="' + esc(C.social.google)    + '" target="_blank" rel="noopener">' + esc(t("onGoogle")) + "</a>"; }
     }
 
     var addrText = a.street + ", " + a.city + ", " + a.state + " " + a.zip;
 
+    if (!C.verified || !C.verified.address || !a.street) {
+      el("find-body").innerHTML = '<p class="addr">' + esc(a.city + ", " + a.state) + '</p><p>' +
+        esc(t("addressUnknown")) + '</p><div class="copyrow"><span class="value">' + esc(C.phone) + '</span><button class="copybtn" type="button" data-copy="' + esc(C.phone) + '">' + esc(t("copy")) + '</button></div><div class="actions">' + actionButtons() + '</div>' +
+        (social ? '<div class="social">' + social + '</div>' : "");
+      return;
+    }
     el("find-body").innerHTML =
       '<p class="addr">' + esc(a.street) + "</p>" +
       '<p class="addr-line">' + esc(a.city + ", " + a.state + " " + a.zip) + "</p>" +
@@ -365,5 +398,5 @@
   renderAll();
 
   /* Keep the open/closed badge honest without reloading the page. */
-  setInterval(renderStatus, 60000);
+  setInterval(function () { renderStatus(); renderHours(); }, 60000);
 })();
