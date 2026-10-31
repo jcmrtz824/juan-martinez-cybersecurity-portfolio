@@ -55,9 +55,14 @@ def main() -> int:
         log_file.write(json.dumps(result, separators=(",", ":")) + "\n")
 
     if not result["healthy"]:
-        result["telegram"] = telegram_alert(
-            f"Automation demo health check failed: {result.get('error', result)}"
-        )
+        try:
+            result["telegram"] = telegram_alert(
+                f"Automation demo health check failed: {result.get('error', result)}"
+            )
+        except Exception as error:  # Optional alerts must not mask health failures.
+            result["telegram"] = "failed"
+            # Exception messages can contain the Telegram URL, including the token.
+            result["telegram_error"] = type(error).__name__
 
     print(json.dumps(result, indent=2))
     return 0 if result["healthy"] else 1

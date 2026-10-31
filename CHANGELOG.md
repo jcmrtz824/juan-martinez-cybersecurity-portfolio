@@ -6,6 +6,7 @@ All notable portfolio changes should be documented in this file.
 
 | Version | Date | Changes |
 | --- | --- | --- |
+| v0.3 | 2026-10-31 | Fixed automation demo Telegram exception handling to preserve health reports and exit status; added offline Python regression tests and updated demo Markdown documentation. No PDFs, screenshots, or production configuration changed. |
 | v0.2 | 2026-07-02 | Added GitHub-ready portfolio landing files, project catalog, skills matrix, tools list, certifications page, learning roadmap, contributing guide, license, and refreshed repository landing page. |
 | v0.1 | 2026-07-02 | Initial cybersecurity portfolio structure with vulnerability assessment and threat intelligence portfolio demonstrations. |
 
