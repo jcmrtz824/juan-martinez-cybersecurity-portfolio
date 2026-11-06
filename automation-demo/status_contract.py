@@ -23,7 +23,7 @@ def validate(document, now=None):
         raise ValueError("Unexpected or missing fields (fail closed)")
     if type(document["schema_version"]) is not int or document["schema_version"] != SCHEMA_VERSION:
         raise ValueError("Invalid schema version")
-    if document["environment"] not in {"paper", "unknown"}:
+    if type(document["environment"]) is not str or document["environment"] not in {"paper", "unknown"}:
         raise ValueError("Only paper or unknown environments may be published")
     for field in ("readiness", "authorization", "orb", "scanner", "runtime", "reconciliation"):
         if type(document[field]) is not str or document[field] not in STATES:
