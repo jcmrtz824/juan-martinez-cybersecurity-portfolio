@@ -7,12 +7,14 @@ The proposed public snapshot contains exactly these fields:
 | Field | Values |
 | --- | --- |
 | schema_version | 1 |
-| observed_at | UTC ISO-8601 timestamp with Z |
+| observed_at | UTC `YYYY-MM-DDTHH:MM:SSZ`, optionally with 1–6 fractional second digits before `Z` |
 | environment | paper, unknown (never live) |
 | readiness, authorization, orb, scanner, runtime, reconciliation | ok, degraded, blocked, unknown |
 | blockers | up to 10 fixed codes from status_contract.py |
 
 Validator behavior: deny unrecognized keys, arbitrary blocker text, invalid statuses, stale timestamps (>15 minutes), excessively future timestamps (>60 seconds), and live environment declarations. It validates shape and freshness, **not the truth or origin of the status**.
+
+Timestamps require the literal `T` separator and final `Z`; offsets, date-only values, control characters, and more than six fractional digits are rejected. Calendar dates must be valid. Observations exactly 15 minutes old or 60 seconds ahead are accepted; values beyond those limits are rejected.
 
 ## Safety requirements before deployment
 

@@ -6,6 +6,7 @@ Never feed this validator credentials, logs, order details or account IDs.
 import argparse
 import datetime as dt
 import json
+import re
 from pathlib import Path
 
 SCHEMA_VERSION = 1
@@ -38,10 +39,16 @@ def validate(document, now=None):
     }
     if any(type(b) is not str or b not in allowed for b in document["blockers"]):
         raise ValueError("Unapproved blocker code")
-    if type(document["observed_at"]) is not str or not document["observed_at"].endswith("Z"):
+    timestamp = document["observed_at"]
+    if type(timestamp) is not str or re.fullmatch(
+        r"[0-9]{4}-[0-9]{2}-[0-9]{2}T"
+        r"[0-9]{2}:[0-9]{2}:[0-9]{2}"
+        r"(?:\.[0-9]{1,6})?Z",
+        timestamp,
+    ) is None:
         raise ValueError("Timestamp must be UTC ISO-8601 with Z")
     try:
-        observed = dt.datetime.fromisoformat(document["observed_at"].replace("Z", "+00:00"))
+        observed = dt.datetime.fromisoformat(timestamp[:-1] + "+00:00")
     except ValueError as exc:
         raise ValueError("Invalid timestamp") from exc
     now = now or dt.datetime.now(dt.timezone.utc)
