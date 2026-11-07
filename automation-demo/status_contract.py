@@ -16,6 +16,16 @@ FIELDS = {
     "blockers",
 }
 STATES = {"ok", "degraded", "blocked", "unknown"}
+HEALTH_FIELDS = ("readiness", "authorization", "orb", "scanner", "runtime", "reconciliation")
+# These codes describe uncertainty about one component, not a confirmed failure.
+COMPONENT_BLOCKERS = {
+    "readiness_unverified": "readiness",
+    "authorization_unverified": "authorization",
+    "orb_unverified": "orb",
+    "scanner_stale": "scanner",
+    "runtime_unverified": "runtime",
+    "reconciliation_unverified": "reconciliation",
+}
 MAX_AGE_SECONDS = 15 * 60
 
 
@@ -26,17 +36,13 @@ def validate(document, now=None):
         raise ValueError("Invalid schema version")
     if type(document["environment"]) is not str or document["environment"] not in {"paper", "unknown"}:
         raise ValueError("Only paper or unknown environments may be published")
-    for field in ("readiness", "authorization", "orb", "scanner", "runtime", "reconciliation"):
+    for field in HEALTH_FIELDS:
         if type(document[field]) is not str or document[field] not in STATES:
             raise ValueError("Invalid status: " + field)
     if not isinstance(document["blockers"], list) or len(document["blockers"]) > 10:
         raise ValueError("Invalid blockers")
     # Fixed codes only; never permit free-form logs or secret-bearing messages.
-    allowed = {
-        "readiness_unverified", "authorization_unverified", "scanner_stale",
-        "orb_unverified", "runtime_unverified", "reconciliation_unverified",
-        "paper_endpoint_unverified", "telemetry_unavailable",
-    }
+    allowed = set(COMPONENT_BLOCKERS) | {"paper_endpoint_unverified", "telemetry_unavailable"}
     if any(type(b) is not str or b not in allowed for b in document["blockers"]):
         raise ValueError("Unapproved blocker code")
     timestamp = document["observed_at"]
@@ -57,6 +63,18 @@ def validate(document, now=None):
         raise ValueError("Stale or future observation")
     if document["environment"] != "paper" and document["authorization"] == "ok":
         raise ValueError("Cannot claim authorized outside confirmed paper environment")
+    blockers = set(document["blockers"])
+    for code, field in COMPONENT_BLOCKERS.items():
+        if code in blockers and document[field] == "ok":
+            raise ValueError(code + " contradicts ok status: " + field)
+    # This unscoped code applies to the whole snapshot. Use a component code
+    # for partial telemetry gaps. Preserve unknown/degraded/blocked as supplied.
+    if "telemetry_unavailable" in blockers and any(
+        document[field] == "ok" for field in HEALTH_FIELDS
+    ):
+        raise ValueError("telemetry_unavailable contradicts ok status")
+    if "paper_endpoint_unverified" in blockers and document["environment"] != "unknown":
+        raise ValueError("paper_endpoint_unverified requires unknown environment")
     return True
 
 
@@ -69,7 +87,7 @@ def main():
         validate(payload)
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         parser.exit(1, "REJECTED: " + str(exc) + "\n")
-    print("VALID: format, allowlist, and freshness only; runtime health NOT independently proven")
+    print("VALID: format, allowlist, freshness, and consistency only; runtime health NOT independently proven")
 
 
 if __name__ == "__main__":
