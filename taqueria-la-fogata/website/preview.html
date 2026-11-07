@@ -1,0 +1,1008 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Taqueria La Fogata — Tacos in Kennesaw, GA</title>
+<meta name="description" content="Taqueria La Fogata, a family-owned taqueria in Kennesaw, Georgia. Call for the current menu, prices and hours.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#14100E">
+
+<meta property="og:title" content="Taqueria La Fogata">
+<meta property="og:description" content="Family-owned tacos in Kennesaw, Georgia.">
+<meta property="og:type" content="restaurant">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_US">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&display=swap">
+<style>
+/* ============================================================================
+   Taqueria La Fogata — stylesheet
+   Layout: single narrow column, "street sign" stack, sticky action bar on
+   phones. Dark-first, because la fogata is a fire at night.
+   ========================================================================== */
+
+/* -- Dark is the default look. ------------------------------------------- */
+:root {
+  --bg:        #14100E;
+  --surface:   #1F1917;
+  --surface-2: #2A2321;
+  --fg:        #F7F0E8;
+  --fg-dim:    #B3A79D;
+  --ember:     #FF6A3D;
+  --flame:     #FFB224;
+  --lime:      #A3D44B;
+  --line:      #352B27;
+  --shadow:    rgba(0, 0, 0, .45);
+
+  --font-display: "Archivo Black", "Arial Black", Impact, system-ui, sans-serif;
+  --font-body:    "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --step--1: clamp(.78rem, .76rem + .1vw, .84rem);
+  --step-0:  clamp(1rem, .97rem + .15vw, 1.08rem);
+  --step-1:  clamp(1.2rem, 1.1rem + .4vw, 1.4rem);
+  --step-2:  clamp(1.5rem, 1.3rem + .8vw, 1.9rem);
+  --step-3:  clamp(2.1rem, 1.6rem + 2.2vw, 3.2rem);
+
+  --radius: 10px;
+  --gutter: 20px;
+
+  color-scheme: dark;
+}
+
+/* -- Light, for people whose system or toggle asks for it. ---------------- */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg:        #FFFCF8;
+    --surface:   #FFFFFF;
+    --surface-2: #F7F0E9;
+    --fg:        #1A1310;
+    --fg-dim:    #6B5D55;
+    --ember:     #C8431F;
+    --flame:     #9A6400;
+    --lime:      #4E7318;
+    --line:      #E8DCD2;
+    --shadow:    rgba(60, 40, 30, .12);
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg:        #FFFCF8;
+  --surface:   #FFFFFF;
+  --surface-2: #F7F0E9;
+  --fg:        #1A1310;
+  --fg-dim:    #6B5D55;
+  --ember:     #C8431F;
+  --flame:     #9A6400;
+  --lime:      #4E7318;
+  --line:      #E8DCD2;
+  --shadow:    rgba(60, 40, 30, .12);
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0;
+  text-wrap: balance;
+  letter-spacing: -.01em;
+}
+
+a { color: var(--ember); }
+
+:focus-visible {
+  outline: 3px solid var(--flame);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 660px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.eyebrow {
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--flame);
+  margin: 0;
+}
+
+/* -- Placeholder warning banner ------------------------------------------ */
+.notice {
+  background: var(--flame);
+  color: #16100A;
+  font-size: var(--step--1);
+  font-weight: 600;
+  line-height: 1.45;
+  padding-block: 10px;
+}
+.notice code {
+  background: rgba(0, 0, 0, .18);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: .95em;
+}
+
+/* -- Top bar: language + theme ------------------------------------------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-block: 12px;
+}
+.chip {
+  font: inherit;
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--fg-dim);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 13px;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+}
+.chip:hover { color: var(--fg); border-color: var(--fg-dim); }
+
+/* -- Hero ----------------------------------------------------------------- */
+.hero { padding-block: 8px 34px; }
+
+.flame-rule {
+  height: 4px;
+  border: 0;
+  margin: 0 0 22px;
+  background: linear-gradient(90deg, var(--ember), var(--flame) 55%, var(--lime));
+  border-radius: 2px;
+}
+
+.hero h1 {
+  font-size: var(--step-3);
+  text-transform: uppercase;
+}
+.hero h1 .ember { color: var(--ember); display: block; }
+
+.hero .tagline {
+  color: var(--fg-dim);
+  font-size: var(--step-1);
+  margin: 14px 0 0;
+}
+.hero .blurb {
+  margin: 18px 0 0;
+  max-width: 48ch;
+}
+
+/* -- Open / closed status ------------------------------------------------- */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 24px;
+  padding: 9px 16px 9px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+.status .dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--fg-dim);
+}
+.status[data-open="yes"] .dot { background: var(--lime); box-shadow: 0 0 0 4px color-mix(in srgb, var(--lime) 22%, transparent); }
+.status[data-open="no"]  .dot { background: var(--ember); }
+.status .detail { color: var(--fg-dim); font-weight: 500; }
+
+/* -- Buttons -------------------------------------------------------------- */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 14px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--fg);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  transition: transform .12s, border-color .15s, background .15s;
+}
+.btn:hover { transform: translateY(-1px); border-color: var(--fg-dim); }
+.btn:active { transform: none; }
+.btn--primary {
+  background: var(--ember);
+  border-color: var(--ember);
+  color: #190B06;
+}
+.btn--primary:hover { border-color: var(--ember); }
+.btn small {
+  display: block;
+  font-weight: 500;
+  font-size: var(--step--1);
+  opacity: .75;
+}
+
+/* -- Section scaffolding -------------------------------------------------- */
+section { padding-block: 34px; border-top: 1px solid var(--line); }
+section > .wrap > h2 {
+  font-size: var(--step-2);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.section-note { color: var(--fg-dim); font-size: var(--step--1); margin: 0 0 22px; }
+
+/* -- Menu ----------------------------------------------------------------- */
+.menu-cat + .menu-cat { margin-top: 32px; }
+.menu-cat h3 {
+  font-size: var(--step-1);
+  text-transform: uppercase;
+  color: var(--flame);
+  letter-spacing: .02em;
+}
+.menu-cat .cat-note {
+  color: var(--fg-dim);
+  font-size: var(--step--1);
+  margin: 5px 0 0;
+}
+
+.menu-list { list-style: none; margin: 14px 0 0; padding: 0; }
+.menu-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-block: 11px;
+  border-bottom: 1px dashed var(--line);
+}
+.menu-list li:last-child { border-bottom: 0; }
+
+.item-main { min-width: 0; flex: 1 1 auto; }
+.item-name { font-weight: 700; }
+.item-desc { display: block; color: var(--fg-dim); font-size: var(--step--1); margin-top: 2px; }
+.item-price {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  flex: none;
+  color: var(--fg);
+}
+
+.tag {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 7px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--surface-2);
+  color: var(--flame);
+  font-size: .68em;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* -- Hours ---------------------------------------------------------------- */
+.hours { list-style: none; margin: 0; padding: 0; }
+.hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding-block: 9px;
+  border-bottom: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+}
+.hours li:last-child { border-bottom: 0; }
+.hours li[data-today="yes"] { color: var(--flame); font-weight: 700; }
+.hours .day { text-transform: capitalize; }
+
+/* -- Callout cards (happy hour, coming soon) ----------------------------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: 0 1px 3px var(--shadow);
+}
+.card--accent {
+  border-left: 4px solid var(--ember);
+  background: var(--surface-2);
+}
+.card h2, .card h3 { font-size: var(--step-2); text-transform: uppercase; margin-top: 6px; }
+.card .when { font-weight: 700; margin: 12px 0 0; }
+.card p { margin: 10px 0 0; }
+.card p:first-of-type { margin-top: 12px; }
+
+/* -- Find us -------------------------------------------------------------- */
+.addr { margin: 0 0 6px; font-weight: 700; font-size: var(--step-1); }
+.addr-line { color: var(--fg-dim); margin: 0; }
+
+.copyrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.copyrow .label {
+  font-size: var(--step--1);
+  color: var(--fg-dim);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-weight: 700;
+  flex: none;
+}
+.copyrow .value {
+  font-weight: 700;
+  font-size: var(--step-1);
+  user-select: all;
+  flex: 1 1 auto;
+  min-width: 0;
+  word-break: break-word;
+}
+.copybtn {
+  font: inherit;
+  font-size: var(--step--1);
+  font-weight: 700;
+  padding: 8px 13px;
+  border-radius: 7px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--fg);
+  cursor: pointer;
+  flex: none;
+}
+.copybtn:hover { border-color: var(--fg-dim); }
+
+/* -- Social --------------------------------------------------------------- */
+.social { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+
+/* -- Footer --------------------------------------------------------------- */
+footer {
+  border-top: 1px solid var(--line);
+  padding-block: 28px 34px;
+  color: var(--fg-dim);
+  font-size: var(--step--1);
+}
+footer p { margin: 0 0 4px; }
+
+/* -- Sticky action bar on phones ----------------------------------------- */
+.stickybar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 50;
+  display: none;
+  gap: 8px;
+  padding: 10px var(--gutter);
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--line);
+}
+.stickybar .btn { padding-block: 12px; }
+
+@media (max-width: 640px) {
+  .stickybar { display: flex; }
+  body { padding-bottom: 82px; }
+  .hero .actions { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+/* Hidden sections remain hidden even when component styles set display. */
+[hidden] { display: none !important; }
+.skip-link { position: absolute; left: 1rem; top: -5rem; z-index: 100; padding: 1rem; background: var(--bg); }
+.skip-link:focus { top: 1rem; }
+
+</style>
+
+<!-- Generated from verified config by build-metadata.js. -->
+<script id="business-data" type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Taqueria La Fogata",
+  "servesCuisine": "Mexican",
+  "telephone": "+17707942122",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "2650 Cobb Parkway NW, Suite 2",
+    "addressLocality": "Kennesaw",
+    "addressRegion": "GA",
+    "postalCode": "30152",
+    "addressCountry": "US"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Monday",
+      "opens": "10:00",
+      "closes": "20:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Tuesday",
+      "opens": "10:00",
+      "closes": "20:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Wednesday",
+      "opens": "10:00",
+      "closes": "20:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Thursday",
+      "opens": "10:00",
+      "closes": "20:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Friday",
+      "opens": "10:00",
+      "closes": "20:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "10:00",
+      "closes": "21:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Sunday",
+      "opens": "10:00",
+      "closes": "21:00"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#menu">Menu / Menú</a>
+<noscript><p>Taqueria La Fogata · Kennesaw, GA. Call / Llama: <a href="tel:+17707942122">(770) 794-2122</a>. Call to confirm today’s menu, prices, hours and address. / Llama para confirmar el menú, los precios, el horario y la dirección.</p></noscript>
+
+<div class="notice" id="notice" hidden></div>
+
+<div class="wrap">
+  <div class="topbar">
+    <button class="chip" type="button" id="lang-toggle">Español</button>
+    <button class="chip" type="button" id="theme-toggle">Theme</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <hr class="flame-rule">
+    <h1 id="brand"></h1>
+    <p class="tagline" id="tagline"></p>
+    <p class="blurb" id="blurb"></p>
+    <div class="status" id="status" role="status"></div>
+    <div class="actions" id="actions"></div>
+  </div>
+</header>
+
+<section id="happyhour" hidden></section>
+
+<section id="menu">
+  <div class="wrap">
+    <h2 id="menu-title">Menu</h2>
+    <p class="section-note" id="menu-note"></p>
+    <div id="menu-body"></div>
+  </div>
+</section>
+
+<section id="hours">
+  <div class="wrap">
+    <h2 id="hours-title">Hours</h2>
+    <ul class="hours" id="hours-body"></ul>
+  </div>
+</section>
+
+<section id="coming" hidden></section>
+
+<section id="find">
+  <div class="wrap">
+    <h2 id="find-title">Find Us</h2>
+    <div id="find-body"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" id="footer-body"></div>
+</footer>
+
+<div class="stickybar" id="stickybar"></div>
+
+<script>
+/* Taqueria La Fogata — business content.
+   Research and unresolved conflicts: ../docs/LAUNCH-READINESS.md.
+   Unknown information stays absent; verification flags must follow evidence.
+   Run: node validate.js; node build-preview.js
+*/
+window.FOGATA = {
+  usingPlaceholders: false,
+  launchApproved: false,
+  verified: { phone: true, address: true, hours: true, menu: false, social: false },
+  name: "Taqueria La Fogata",
+  tagline: {
+    en: "Family-owned tacos in Kennesaw, Georgia",
+    es: "Tacos de familia en Kennesaw, Georgia"
+  },
+  blurb: {
+    en: "A family-owned taqueria in Kennesaw. Call us for today's menu, prices and hours.",
+    es: "Una taquería familiar en Kennesaw. Llámanos para consultar el menú, los precios y el horario de hoy."
+  },
+  // Corroborated by Restaurantji, Yellow Pages, Zmenu and Allmenus, 2026-10-26.
+  // Directory verification is not a test call or owner confirmation.
+  phone: "(770) 794-2122",
+  // Customer-facing address and suite confirmed by Juan on 2026-10-26.
+  address: { street: "2650 Cobb Parkway NW, Suite 2", city: "Kennesaw", state: "GA", zip: "30152" },
+  mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=2650%20Cobb%20Parkway%20NW%2C%20Suite%202%2C%20Kennesaw%2C%20GA%2030152",
+  // Do not assume a matching business name means the account is ours.
+  social: { tiktok: "", instagram: "", facebook: "", google: "" },
+  // Regular weekly hours confirmed by Juan on 2026-10-26; Eastern time.
+  hours: {
+    mon: { open: "10:00", close: "20:00" },
+    tue: { open: "10:00", close: "20:00" },
+    wed: { open: "10:00", close: "20:00" },
+    thu: { open: "10:00", close: "20:00" },
+    fri: { open: "10:00", close: "20:00" },
+    sat: { open: "10:00", close: "21:00" },
+    sun: { open: "10:00", close: "21:00" }
+  },
+  // Offers and expansion require separate, explicit business approval.
+  happyHour: { show: false, approved: false },
+  comingSoon: { show: false, approved: false },
+  // No current owner-verified menu or prices available. Never deploy sample prices.
+  menu: []
+};
+
+</script>
+<script>
+/* ============================================================================
+   Taqueria La Fogata — renders the page from site-config.js
+   You should not need to edit this file. Edit site-config.js instead.
+   ========================================================================== */
+(function () {
+  "use strict";
+
+  var C = window.FOGATA;
+  if (!C) { return; }
+
+  /* The restaurant's clock, not the visitor's. Georgia is Eastern. */
+  var TZ = "America/New_York";
+
+  var DAYS  = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+  var ORDER = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+
+  var DAY_NAMES = {
+    en: { mon: "Monday", tue: "Tuesday", wed: "Wednesday", thu: "Thursday", fri: "Friday", sat: "Saturday", sun: "Sunday" },
+    es: { mon: "Lunes",  tue: "Martes",  wed: "Miércoles", thu: "Jueves",   fri: "Viernes", sat: "Sábado",  sun: "Domingo" }
+  };
+
+  var UI = {
+    en: {
+      menu: "Menu", hours: "Hours", find: "Find Us",
+      openNow: "Open now", closedNow: "Closed",
+      until: "until", opensAt: "Opens at", opensDay: "Opens",
+      closedToday: "Closed today",
+      call: "Call", callUs: "Call us", directions: "Directions", getDirections: "Get directions",
+      phone: "Phone", address: "Address", copy: "Copy", copied: "Copied",
+      popular: "Popular", prices: "Prices and items may change. Call to confirm.",
+      followTiktok: "TikTok", followInsta: "Instagram", followFacebook: "Facebook", onGoogle: "Google",
+      langLabel: "Español", themeLabel: "Theme",
+      placeholderWarn: "Preview — business information is awaiting confirmation.",
+      reviewWarn: "Preview — business details are being confirmed before launch.",
+      hoursUnknown: "Call for today’s hours", menuUnknown: "Call us for the current menu, prices and availability.",
+      addressUnknown: "Call us to confirm the street address before visiting."
+    },
+    es: {
+      menu: "Menú", hours: "Horario", find: "Dónde Estamos",
+      openNow: "Abierto ahora", closedNow: "Cerrado",
+      until: "hasta", opensAt: "Abre a las", opensDay: "Abre",
+      closedToday: "Cerrado hoy",
+      call: "Llamar", callUs: "Llámanos", directions: "Cómo llegar", getDirections: "Cómo llegar",
+      phone: "Teléfono", address: "Dirección", copy: "Copiar", copied: "Copiado",
+      popular: "Favorito", prices: "Precios y platillos pueden cambiar. Llámanos para confirmar.",
+      followTiktok: "TikTok", followInsta: "Instagram", followFacebook: "Facebook", onGoogle: "Google",
+      langLabel: "English", themeLabel: "Tema",
+      placeholderWarn: "Vista previa — los datos del negocio están pendientes de confirmación.",
+      reviewWarn: "Vista previa — estamos confirmando los datos antes de publicar.",
+      hoursUnknown: "Llámanos para consultar el horario de hoy", menuUnknown: "Llámanos para consultar el menú, los precios y la disponibilidad actuales.",
+      addressUnknown: "Llámanos para confirmar la dirección antes de visitarnos."
+    }
+  };
+
+  /* ---------------------------------------------------------- small helpers */
+
+  function store(key, val) {
+    try {
+      if (val === undefined) { return window.localStorage.getItem(key); }
+      window.localStorage.setItem(key, val);
+    } catch (e) { /* private window, blocked storage — the page still works */ }
+    return null;
+  }
+
+  var lang  = store("fogata-lang") === "es" ? "es" : "en";
+  var theme = store("fogata-theme");
+
+  function t(key) { return (UI[lang] && UI[lang][key]) || UI.en[key] || key; }
+
+  /* Config values may be a plain string or {en, es}. */
+  function s(val) {
+    if (val === null || val === undefined) { return ""; }
+    if (typeof val === "string") { return val; }
+    return val[lang] || val.en || val.es || "";
+  }
+
+  function esc(str) {
+    return String(str).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function el(id) { return document.getElementById(id); }
+
+  function digits(str) { return String(str || "").replace(/[^\d+]/g, ""); }
+
+  function money(p) {
+    if (p === null || p === undefined || p === "") { return ""; }
+    return "$" + p;
+  }
+
+  /* ------------------------------------------------------ the clock in GA  */
+
+  function nowInGeorgia() {
+    var parts;
+    try {
+      parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: TZ, weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23"
+      }).formatToParts(new Date());
+    } catch (e) {
+      return null; // Never use the visitor’s clock as Georgia time.
+    }
+    var get = function (type) {
+      for (var i = 0; i < parts.length; i++) { if (parts[i].type === type) { return parts[i].value; } }
+      return "";
+    };
+    var wd = get("weekday").toLowerCase().slice(0, 3);
+    return {
+      day: DAYS.indexOf(wd) > -1 ? wd : "mon",
+      minutes: parseInt(get("hour"), 10) * 60 + parseInt(get("minute"), 10)
+    };
+  }
+
+  function toMinutes(hhmm) {
+    if (!hhmm) { return null; }
+    var bits = String(hhmm).split(":");
+    return parseInt(bits[0], 10) * 60 + parseInt(bits[1] || "0", 10);
+  }
+
+  function pretty(hhmm) {
+    var m = toMinutes(hhmm);
+    if (m === null) { return ""; }
+    var h = Math.floor(m / 60), min = m % 60;
+    var ampm = h >= 12 ? "pm" : "am";
+    var h12 = h % 12 === 0 ? 12 : h % 12;
+    return h12 + (min ? ":" + String(min).padStart(2, "0") : "") + ampm;
+  }
+
+  /* Returns {open:bool, closesAt, opensAt, opensDayKey} for right now. */
+  function openState() {
+    var now = nowInGeorgia();
+    if (!C.verified || !C.verified.hours || !now) { return { unknown: true }; }
+    var today = C.hours && C.hours[now.day];
+    var yesterday = DAYS[(DAYS.indexOf(now.day) + 6) % 7];
+    var previous = C.hours && C.hours[yesterday];
+    // After midnight belongs to the previous day's overnight interval.
+    if (previous && previous.open && previous.close) {
+      var po = toMinutes(previous.open), pc = toMinutes(previous.close);
+      if (pc <= po && now.minutes < pc) { return { open: true, closesAt: previous.close }; }
+    }
+    if (today && today.open && today.close) {
+      var o = toMinutes(today.open), c = toMinutes(today.close);
+      var isOpen = c > o ? (now.minutes >= o && now.minutes < c) : now.minutes >= o;
+      if (isOpen) { return { open: true, closesAt: today.close }; }
+      if (now.minutes < o) { return { open: false, opensAt: today.open }; }
+    }
+
+    /* Find the next day that has hours. */
+    for (var i = 1; i <= 7; i++) {
+      var key = DAYS[(DAYS.indexOf(now.day) + i) % 7];
+      var h = C.hours && C.hours[key];
+      if (h && h.open) { return { open: false, opensAt: h.open, opensDayKey: key }; }
+    }
+    return { open: false };
+  }
+
+  /* -------------------------------------------------------------- renderers */
+
+  function renderNotice() {
+    var n = el("notice");
+    if (!n) { return; }
+    if (!C.usingPlaceholders && C.launchApproved) { n.hidden = true; return; }
+    n.hidden = false;
+    n.innerHTML = '<div class="wrap">' + t(C.usingPlaceholders ? "placeholderWarn" : "reviewWarn") + "</div>";
+  }
+
+  function renderHero() {
+    el("brand").innerHTML = '<span class="ember">' + esc(C.name.split(" ")[0]) + "</span>" +
+      esc(C.name.split(" ").slice(1).join(" "));
+    el("tagline").textContent = s(C.tagline);
+    el("blurb").textContent = s(C.blurb);
+  }
+
+  function renderStatus() {
+    var st = openState();
+    var box = el("status");
+    if (st.unknown) {
+      box.dataset.open = "unknown";
+      box.textContent = t("hoursUnknown");
+      return;
+    }
+    var detail = "";
+
+    if (st.open) {
+      detail = t("until") + " " + pretty(st.closesAt);
+    } else if (st.opensAt && st.opensDayKey) {
+      detail = t("opensDay") + " " + DAY_NAMES[lang][st.opensDayKey] + " " + pretty(st.opensAt);
+    } else if (st.opensAt) {
+      detail = t("opensAt") + " " + pretty(st.opensAt);
+    } else {
+      detail = t("closedToday");
+    }
+
+    box.dataset.open = st.open ? "yes" : "no";
+    box.innerHTML = '<span class="dot" aria-hidden="true"></span><span>' +
+      esc(st.open ? t("openNow") : t("closedNow")) +
+      '</span><span class="detail">' + esc(detail) + "</span>";
+  }
+
+  function actionButtons() {
+    var tel = digits(C.phone);
+    var phone = C.verified && C.verified.phone && tel ?
+      '<a class="btn btn--primary" href="tel:' + esc(tel.length === 10 ? "+1" + tel : tel) + '">' +
+      esc(t("call")) + " <small>" + esc(C.phone) + "</small></a>" : "";
+    return phone + (C.verified && C.verified.address && C.mapsUrl ?
+      '<a class="btn" href="' + esc(C.mapsUrl) + '" target="_blank" rel="noopener">' + esc(t("directions")) + "</a>" : "");
+  }
+
+  function renderActions() {
+    el("actions").innerHTML = actionButtons();
+    el("stickybar").innerHTML = actionButtons();
+  }
+
+  function renderMenu() {
+    el("menu-title").textContent = t("menu");
+    el("menu-note").textContent = t("prices");
+
+    if (!C.verified || !C.verified.menu || !C.menu.length) {
+      el("menu-note").textContent = t("menuUnknown");
+      el("menu-body").innerHTML = "";
+      return;
+    }
+    var html = C.menu.map(function (cat) {
+      var items = (cat.items || []).filter(function (i) { return !i.hidden; }).map(function (i) {
+        var tag = i.popular ? '<span class="tag">' + esc(t("popular")) + "</span>" : "";
+        var desc = s(i.desc) ? '<span class="item-desc">' + esc(s(i.desc)) + "</span>" : "";
+        return '<li><span class="item-main"><span class="item-name">' + esc(s(i.name)) + "</span>" +
+               tag + desc + '</span><span class="item-price">' + esc(money(i.price)) + "</span></li>";
+      }).join("");
+
+      var note = s(cat.note) ? '<p class="cat-note">' + esc(s(cat.note)) + "</p>" : "";
+      return '<div class="menu-cat"><h3>' + esc(s(cat.name)) + "</h3>" + note +
+             '<ul class="menu-list">' + items + "</ul></div>";
+    }).join("");
+
+    el("menu-body").innerHTML = html;
+  }
+
+  function renderHours() {
+    el("hours-title").textContent = t("hours");
+    if (!C.verified || !C.verified.hours) {
+      el("hours-body").innerHTML = "<li>" + esc(t("hoursUnknown")) + "</li>";
+      return;
+    }
+    var clock = nowInGeorgia();
+    var todayKey = clock && clock.day;
+
+    el("hours-body").innerHTML = ORDER.map(function (k) {
+      var h = C.hours && C.hours[k];
+      var val = (h && h.open && h.close) ? pretty(h.open) + " – " + pretty(h.close) : t("closedNow");
+      return '<li data-today="' + (k === todayKey ? "yes" : "no") + '">' +
+             '<span class="day">' + esc(DAY_NAMES[lang][k]) + "</span>" +
+             "<span>" + esc(val) + "</span></li>";
+    }).join("");
+  }
+
+  function renderHappyHour() {
+    var sec = el("happyhour");
+    if (!C.happyHour || !C.happyHour.show || !C.happyHour.approved) { sec.hidden = true; return; }
+    sec.hidden = false;
+    sec.innerHTML = '<div class="wrap"><div class="card card--accent">' +
+      '<p class="eyebrow">' + esc(s(C.happyHour.when)) + "</p>" +
+      "<h2>" + esc(s(C.happyHour.name)) + "</h2>" +
+      "<p>" + esc(s(C.happyHour.details)) + "</p></div></div>";
+  }
+
+  function renderComingSoon() {
+    var sec = el("coming");
+    if (!C.comingSoon || !C.comingSoon.show || !C.comingSoon.approved) { sec.hidden = true; return; }
+    sec.hidden = false;
+    sec.innerHTML = '<div class="wrap"><div class="card card--accent">' +
+      '<p class="eyebrow">' + esc(s(C.comingSoon.eyebrow)) + "</p>" +
+      "<h2>" + esc(s(C.comingSoon.headline)) + "</h2>" +
+      "<p>" + esc(s(C.comingSoon.body)) + "</p></div></div>";
+  }
+
+  function renderFind() {
+    el("find-title").textContent = t("find");
+    var a = C.address || {};
+
+    var social = "";
+    if (C.social && C.verified && C.verified.social) {
+      if (C.social.tiktok)    { social += '<a class="btn" href="' + esc(C.social.tiktok)    + '" target="_blank" rel="noopener">' + esc(t("followTiktok")) + "</a>"; }
+      if (C.social.instagram) { social += '<a class="btn" href="' + esc(C.social.instagram) + '" target="_blank" rel="noopener">' + esc(t("followInsta")) + "</a>"; }
+      if (C.social.facebook) { social += '<a class="btn" href="' + esc(C.social.facebook) + '" target="_blank" rel="noopener">' + esc(t("followFacebook")) + "</a>"; }
+      if (C.social.google)    { social += '<a class="btn" href="' + esc(C.social.google)    + '" target="_blank" rel="noopener">' + esc(t("onGoogle")) + "</a>"; }
+    }
+
+    var addrText = a.street + ", " + a.city + ", " + a.state + " " + a.zip;
+
+    if (!C.verified || !C.verified.address || !a.street) {
+      el("find-body").innerHTML = '<p class="addr">' + esc(a.city + ", " + a.state) + '</p><p>' +
+        esc(t("addressUnknown")) + '</p><div class="copyrow"><span class="value">' + esc(C.phone) + '</span><button class="copybtn" type="button" data-copy="' + esc(C.phone) + '">' + esc(t("copy")) + '</button></div><div class="actions">' + actionButtons() + '</div>' +
+        (social ? '<div class="social">' + social + '</div>' : "");
+      return;
+    }
+    el("find-body").innerHTML =
+      '<p class="addr">' + esc(a.street) + "</p>" +
+      '<p class="addr-line">' + esc(a.city + ", " + a.state + " " + a.zip) + "</p>" +
+      '<div class="copyrow"><span class="label">' + esc(t("phone")) + "</span>" +
+        '<span class="value">' + esc(C.phone) + "</span>" +
+        '<button class="copybtn" type="button" data-copy="' + esc(C.phone) + '">' + esc(t("copy")) + "</button></div>" +
+      '<div class="copyrow"><span class="label">' + esc(t("address")) + "</span>" +
+        '<span class="value">' + esc(addrText) + "</span>" +
+        '<button class="copybtn" type="button" data-copy="' + esc(addrText) + '">' + esc(t("copy")) + "</button></div>" +
+      '<div class="actions"><a class="btn btn--primary" href="' + esc(C.mapsUrl) + '" target="_blank" rel="noopener">' +
+        esc(t("getDirections")) + "</a></div>" +
+      (social ? '<div class="social">' + social + "</div>" : "");
+  }
+
+  function renderFooter() {
+    el("footer-body").innerHTML =
+      "<p><strong>" + esc(C.name) + "</strong></p>" +
+      "<p>" + esc((C.address || {}).city + ", " + (C.address || {}).state) + " &middot; " + esc(C.phone) + "</p>";
+  }
+
+  function renderChrome() {
+    el("lang-toggle").textContent = t("langLabel");
+    el("theme-toggle").textContent = t("themeLabel");
+    document.documentElement.lang = lang;
+  }
+
+  function renderAll() {
+    renderNotice();
+    renderHero();
+    renderStatus();
+    renderActions();
+    renderMenu();
+    renderHours();
+    renderHappyHour();
+    renderComingSoon();
+    renderFind();
+    renderFooter();
+    renderChrome();
+  }
+
+  /* ------------------------------------------------------------- behaviour */
+
+  function applyTheme() {
+    if (theme === "light" || theme === "dark") {
+      document.documentElement.setAttribute("data-theme", theme);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  }
+
+  function currentlyDark() {
+    if (theme === "dark")  { return true; }
+    if (theme === "light") { return false; }
+    try { return !window.matchMedia("(prefers-color-scheme: light)").matches; }
+    catch (e) { return true; }
+  }
+
+  document.addEventListener("click", function (ev) {
+    var copyBtn = ev.target.closest && ev.target.closest(".copybtn");
+    if (copyBtn) {
+      var text = copyBtn.getAttribute("data-copy");
+      var done = function () {
+        var old = copyBtn.textContent;
+        copyBtn.textContent = t("copied");
+        setTimeout(function () { copyBtn.textContent = old; }, 1600);
+      };
+      try {
+        navigator.clipboard.writeText(text).then(done, function () { selectValue(copyBtn); });
+      } catch (e) { selectValue(copyBtn); }
+      return;
+    }
+
+    if (ev.target.id === "lang-toggle") {
+      lang = lang === "en" ? "es" : "en";
+      store("fogata-lang", lang);
+      renderAll();
+      return;
+    }
+
+    if (ev.target.id === "theme-toggle") {
+      theme = currentlyDark() ? "light" : "dark";
+      store("fogata-theme", theme);
+      applyTheme();
+    }
+  });
+
+  /* If the clipboard is refused, select the text so it can be copied by hand. */
+  function selectValue(btn) {
+    var row = btn.closest(".copyrow");
+    var value = row && row.querySelector(".value");
+    if (!value) { return; }
+    try {
+      var range = document.createRange();
+      range.selectNodeContents(value);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } catch (e) { /* nothing more we can do */ }
+  }
+
+  applyTheme();
+  renderAll();
+
+  /* Keep the open/closed badge honest without reloading the page. */
+  setInterval(function () { renderStatus(); renderHours(); }, 60000);
+})();
+
+</script>
+</body>
+</html>
