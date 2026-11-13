@@ -28,6 +28,21 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(item["readiness"], "ok")
         self.assertIn("orb_unverified", item["blockers"])
 
+    def test_preserves_upstream_observation_time(self):
+        item = make_snapshot(sample(), NOW)
+        self.assertEqual(item["observed_at"], "2026-11-12T19:59:00Z")
+
+    def test_fresh_source_is_not_retimestamped(self):
+        item = sample()
+        item["observed_at"] = "2026-11-12T19:55:00Z"
+        out = make_snapshot(item, NOW)
+        self.assertEqual(out["observed_at"], "2026-11-12T19:55:00Z")
+
+    def test_source_time_with_invalid_calendar_fails_closed(self):
+        item = sample()
+        item["observed_at"] = "2026-13-12T19:59:00Z"
+        self.assertEqual(make_snapshot(item, NOW)["environment"], "unknown")
+
     def test_missing_source_unknown(self):
         item = make_snapshot(None, NOW)
         self.assertTrue(validate(item, NOW))
