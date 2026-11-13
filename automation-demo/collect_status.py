@@ -58,7 +58,7 @@ def make_snapshot(source, now=None):
     except (ValueError, TypeError, OverflowError):
         validate(result, now)
         return result
-    result["environment"] = source["environment"]
+    # Keep the upstream observation timestamp: never make old evidence appear newer.\n    result["observed_at"] = observed.isoformat(timespec="seconds").replace("+00:00", "Z")\n    result["environment"] = source["environment"]
     for name in COMPONENTS:
         result[name] = source[name]
     if result["environment"] == "unknown":
