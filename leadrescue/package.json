@@ -1,0 +1,17 @@
+{
+  "name": "leadrescue",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Missed-call text-back + AI lead qualifier for home-service businesses.",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.9.0"
+  }
+}
