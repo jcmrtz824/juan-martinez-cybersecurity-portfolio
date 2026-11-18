@@ -1,3 +1,7 @@
 .env
 monitoring/
 node_modules/
+# Local health assertions and generated snapshots must not be committed.
+local-status/
+reviewed-input*.json
+private-status*.json
