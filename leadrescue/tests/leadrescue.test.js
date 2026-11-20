@@ -133,14 +133,14 @@ test("Twilio signature validation accepts the right signature and rejects others
 });
 
 test("HTTP: Twilio webhooks end to end, with signature enforcement", async (t) => {
-  const { engine, store, out } = setup();
+  const { engine, out } = setup();
   const base = "https://lr.example.test";
-  const app = createApp({ businesses: [biz], engine, store, authToken: "secret", publicBaseUrl: base, brainName: "test" });
+  const app = createApp({ businesses: [biz], engine, authToken: "secret", publicBaseUrl: base });
   await new Promise((r) => app.listen(0, r));
   t.after(() => app.close());
   const origin = `http://127.0.0.1:${app.address().port}`;
-  const call = (path, params, sign = true) =>
-    fetch(origin + path, {
+  const call = (path, params, sign = true, target = origin) =>
+    fetch(target + path, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -169,16 +169,16 @@ test("HTTP: Twilio webhooks end to end, with signature enforcement", async (t) =
 
   // mode "dial": ring owner first, text back only if they don't pick up
   const dialBiz = { ...biz, id: "dial", twilioNumber: "+15550109999", mode: "dial" };
-  const app2 = createApp({ businesses: [dialBiz], engine, store, brainName: "test" });
+  const app2 = createApp({ businesses: [dialBiz], engine, authToken: "secret", publicBaseUrl: base });
   await new Promise((r) => app2.listen(0, r));
   t.after(() => app2.close());
   const o2 = `http://127.0.0.1:${app2.address().port}`;
-  const form = (p) => ({ method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(p) });
-  const v = await (await fetch(o2 + "/twilio/voice", form({ From: CALLER, To: dialBiz.twilioNumber }))).text();
+  const dial = (path, params) => call(path, { From: CALLER, To: dialBiz.twilioNumber, ...params }, true, o2);
+  const v = await (await dial("/twilio/voice")).text();
   assert.match(v, /<Dial timeout="20" action="\/twilio\/dial-status">\+15550100001<\/Dial>/);
   const before = out().length;
-  await fetch(o2 + "/twilio/dial-status", form({ From: CALLER, To: dialBiz.twilioNumber, DialCallStatus: "completed" }));
+  await dial("/twilio/dial-status", { DialCallStatus: "completed" });
   assert.equal(out().length, before);
-  await fetch(o2 + "/twilio/dial-status", form({ From: CALLER, To: dialBiz.twilioNumber, DialCallStatus: "no-answer" }));
+  await dial("/twilio/dial-status", { DialCallStatus: "no-answer" });
   assert.equal(out().length, before + 1);
 });

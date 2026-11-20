@@ -6,6 +6,7 @@
   "description": "Missed-call text-back + AI lead qualifier for home-service businesses.",
   "scripts": {
     "start": "node server.js",
+    "demo": "node server.js --demo",
     "test": "node --test"
   },
   "engines": {

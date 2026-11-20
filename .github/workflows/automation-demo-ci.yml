@@ -38,3 +38,11 @@ jobs:
         run: |
           node --check automation-demo/server.js
           node --check automation-demo/ecosystem.config.js
+
+      - name: Install LeadRescue dependencies
+        working-directory: leadrescue
+        run: npm ci
+
+      - name: Run offline LeadRescue tests
+        working-directory: leadrescue
+        run: npm test

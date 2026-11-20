@@ -2,7 +2,7 @@
 //   POST /twilio/voice        incoming call on a business's LeadRescue number
 //   POST /twilio/dial-status  result of ringing the owner (mode "dial")
 //   POST /twilio/sms          incoming text from a customer
-//   GET  /                    demo simulator (also POST /sim/*, GET /api/state)
+//   npm run demo              separate local browser simulator
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
@@ -39,29 +39,29 @@ async function readBody(req) {
   return Object.fromEntries(new URLSearchParams(raw));
 }
 
-export function createApp({ businesses, engine, store, authToken, publicBaseUrl, enableSim = true, brainName }) {
-  const byNumber = new Map(businesses.map((b) => [b.twilioNumber, b]));
-  const byId = new Map(businesses.map((b) => [b.id, b]));
+const send = (res, status, type, body) => {
+  res.writeHead(status, { "Content-Type": type, "Cache-Control": "no-store" });
+  res.end(body);
+};
+const json = (res, status, obj) => send(res, status, "application/json", JSON.stringify(obj));
 
-  const send = (res, status, type, body) => {
-    res.writeHead(status, { "Content-Type": type });
-    res.end(body);
-  };
-  const json = (res, status, obj) => send(res, status, "application/json", JSON.stringify(obj));
+export function createApp({ businesses, engine, authToken, publicBaseUrl }) {
+  const byNumber = new Map(businesses.map((b) => [b.twilioNumber, b]));
 
   return http.createServer(async (req, res) => {
-    const url = new URL(req.url, "http://localhost");
     try {
+      const url = new URL(req.url, "http://localhost");
       if (req.method === "GET" && url.pathname === "/healthz") return json(res, 200, { ok: true });
 
       // ---- Twilio webhooks -------------------------------------------------
       if (req.method === "POST" && url.pathname.startsWith("/twilio/")) {
+        if (!authToken || !publicBaseUrl || !req.headers["x-twilio-signature"]) {
+          return send(res, 403, "text/plain", "invalid signature");
+        }
         const p = await readBody(req);
-        if (authToken) {
-          const full = publicBaseUrl.replace(/\/$/, "") + req.url;
-          if (!validTwilioSignature(authToken, full, p, req.headers["x-twilio-signature"])) {
-            return send(res, 403, "text/plain", "invalid signature");
-          }
+        const full = publicBaseUrl.replace(/\/$/, "") + req.url;
+        if (!validTwilioSignature(authToken, full, p, req.headers["x-twilio-signature"])) {
+          return send(res, 403, "text/plain", "invalid signature");
         }
         const business = byNumber.get(p.To) || byNumber.get(p.Called);
         if (!business) return send(res, 404, "text/plain", "unknown number");
@@ -100,33 +100,6 @@ export function createApp({ businesses, engine, store, authToken, publicBaseUrl,
         }
       }
 
-      // ---- Demo simulator --------------------------------------------------
-      if (enableSim) {
-        if (req.method === "GET" && url.pathname === "/") {
-          return send(res, 200, "text/html", fs.readFileSync(path.join(here, "public", "demo.html")));
-        }
-        if (req.method === "GET" && url.pathname === "/api/state") {
-          const business = byId.get(url.searchParams.get("business")) || businesses[0];
-          return json(res, 200, {
-            brain: brainName,
-            business: { id: business.id, name: business.name, trade: business.trade },
-            businesses: businesses.map((b) => ({ id: b.id, name: b.name })),
-            conversations: store.listConversations(business.id),
-            ownerAlerts: store.state.outbox.filter((m) => m.kind === "owner_alert" && m.from === business.twilioNumber),
-          });
-        }
-        if (req.method === "POST" && url.pathname.startsWith("/sim/")) {
-          const p = await readBody(req);
-          const business = byId.get(p.business) || businesses[0];
-          const phone = p.phone || "+15550123456";
-          if (url.pathname === "/sim/missed-call") return json(res, 200, await engine.handleMissedCall(business, phone));
-          if (url.pathname === "/sim/sms") return json(res, 200, await engine.handleInboundSms(business, phone, String(p.body || "")));
-          if (url.pathname === "/sim/reset") {
-            store.reset();
-            return json(res, 200, { ok: true });
-          }
-        }
-      }
       send(res, 404, "text/plain", "not found");
     } catch (err) {
       console.error(err);
@@ -135,27 +108,84 @@ export function createApp({ businesses, engine, store, authToken, publicBaseUrl,
   });
 }
 
+// The demo deliberately takes no runtime configuration or customer store.
+function createDemoApp() {
+  const business = JSON.parse(fs.readFileSync(path.join(here, "config", "businesses", "sample-hvac.json"), "utf8"));
+  const store = new Store(null);
+  const engine = new Engine({ store, sms: new SmsSender({ store }), brain: new ScriptBrain() });
+  const summary = { id: business.id, name: business.name, trade: business.trade };
+  const html = fs.readFileSync(path.join(here, "public", "demo.html"));
+
+  const app = http.createServer(async (req, res) => {
+    try {
+      const host = `127.0.0.1:${app.address().port}`;
+      const origin = `http://${host}`;
+      if (req.headers.host !== host) return send(res, 403, "text/plain", "local demo only");
+      const { pathname } = new URL(req.url, origin);
+
+      if (req.method === "GET" && pathname === "/") return send(res, 200, "text/html", html);
+      if (req.method === "GET" && pathname === "/api/state") {
+        return json(res, 200, {
+          brain: "Scripted demo",
+          business: summary,
+          businesses: [{ id: business.id, name: business.name }],
+          conversations: store.listConversations(business.id),
+          ownerAlerts: store.state.outbox.filter((m) => m.kind === "owner_alert"),
+        });
+      }
+      if (req.method === "POST" && pathname.startsWith("/sim/")) {
+        if (req.headers.origin !== origin) return send(res, 403, "text/plain", "local demo only");
+        if (pathname === "/sim/reset") {
+          store.reset();
+          return json(res, 200, { ok: true });
+        }
+        if (pathname === "/sim/missed-call" || pathname === "/sim/sms") {
+          const p = await readBody(req);
+          const phone = p.phone || "+15550123456";
+          const result = pathname === "/sim/missed-call"
+            ? await engine.handleMissedCall(business, phone)
+            : await engine.handleInboundSms(business, phone, String(p.body || ""));
+          return json(res, 200, result);
+        }
+      }
+      send(res, 404, "text/plain", "not found");
+    } catch (err) {
+      console.error(err);
+      if (!res.headersSent) send(res, 500, "text/plain", "server error");
+    }
+  });
+  return app;
+}
+
 // ---- Entrypoint -------------------------------------------------------------
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const env = process.env;
-  const store = new Store(path.join(here, "data", "store.json"));
-  const sms = new SmsSender({ store, accountSid: env.TWILIO_ACCOUNT_SID, authToken: env.TWILIO_AUTH_TOKEN });
-  const useClaude = Boolean(env.ANTHROPIC_API_KEY || env.ANTHROPIC_AUTH_TOKEN) && env.LEADRESCUE_BRAIN !== "script";
-  const brain = useClaude ? new ClaudeBrain() : new ScriptBrain();
-  if (sms.live && !env.PUBLIC_BASE_URL) {
-    throw new Error("PUBLIC_BASE_URL is required when Twilio credentials are set (used to verify webhook signatures).");
+  const port = env.PORT === undefined || env.PORT === "" ? 3000 : Number(env.PORT);
+
+  if (process.argv.slice(2).includes("--demo")) {
+    if (env.NODE_ENV === "production" || env.DISABLE_SIM === "1") {
+      throw new Error("The local demo cannot run in production or with DISABLE_SIM=1.");
+    }
+    const app = createDemoApp();
+    app.listen(port, "127.0.0.1", () => {
+      console.log(`LeadRescue demo on http://127.0.0.1:${app.address().port}`);
+    });
+  } else {
+    if (env.TWILIO_AUTH_TOKEN && !env.PUBLIC_BASE_URL) {
+      throw new Error("PUBLIC_BASE_URL is required with a Twilio auth token to verify webhook signatures.");
+    }
+    const store = new Store(path.join(here, "data", "store.json"));
+    const sms = new SmsSender({ store, accountSid: env.TWILIO_ACCOUNT_SID, authToken: env.TWILIO_AUTH_TOKEN });
+    const useClaude = Boolean(env.ANTHROPIC_API_KEY || env.ANTHROPIC_AUTH_TOKEN) && env.LEADRESCUE_BRAIN !== "script";
+    const brain = useClaude ? new ClaudeBrain() : new ScriptBrain();
+    const app = createApp({
+      businesses: loadBusinesses(),
+      engine: new Engine({ store, sms, brain }),
+      authToken: env.TWILIO_AUTH_TOKEN,
+      publicBaseUrl: env.PUBLIC_BASE_URL,
+    });
+    app.listen(port, () => {
+      console.log(`LeadRescue webhooks on port ${app.address().port}  brain=${useClaude ? "claude" : "script"}  sms=${sms.live ? "twilio" : "dry-run"}`);
+    });
   }
-  const app = createApp({
-    businesses: loadBusinesses(),
-    engine: new Engine({ store, sms, brain }),
-    store,
-    authToken: env.TWILIO_AUTH_TOKEN,
-    publicBaseUrl: env.PUBLIC_BASE_URL || "",
-    enableSim: env.DISABLE_SIM !== "1",
-    brainName: useClaude ? `Claude (${brain.model})` : "Scripted fallback (no API key set)",
-  });
-  const port = Number(env.PORT) || 3000;
-  app.listen(port, () => {
-    console.log(`LeadRescue on http://localhost:${port}  brain=${useClaude ? "claude" : "script"}  sms=${sms.live ? "twilio" : "dry-run"}`);
-  });
 }

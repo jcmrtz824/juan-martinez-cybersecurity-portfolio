@@ -1,46 +1,40 @@
 # LeadRescue
 
-Missed-call text-back with an AI lead qualifier, built to be sold as a done-for-you service to home-service businesses.
+LeadRescue is a missed-call text-back prototype for home-service businesses. A text assistant collects service, name, location, and timing, then prepares an alert for the owner. Business configurations are JSON files in `config/businesses/`.
 
-A call the owner can't answer triggers a text to the caller. An assistant (Claude) collects what they need, their name, location and timing, then texts the owner a ready-to-call lead. One server handles many client businesses; each is a JSON file in `config/businesses/`.
-
-## Run the demo
+## Run the local demo
 
 ```bash
-npm install
-npm start          # http://localhost:3000
+npm ci
+npm run demo
 npm test
 ```
 
-With no credentials it runs a scripted assistant and records texts instead of sending them, which is enough to demo in front of a prospect. Set `ANTHROPIC_API_KEY` to use Claude for the conversation.
+Open `http://127.0.0.1:3000`. The demo uses the bundled sample business, a scripted assistant, and an in-memory store. It records simulated texts and alerts until reset or restart. Use sample inputs for demonstrations. The process binds to IPv4 loopback, checks the browser origin on simulator actions, and refuses to start in production. Keep the demo off public proxies and tunnels.
 
-## Environment
+## Webhook server
+
+`npm start` launches the webhook server. It serves `GET /healthz` and signed Twilio hooks. The demo page, state API, and simulator actions are unavailable on this server.
 
 | Variable | Purpose |
 |---|---|
-| `ANTHROPIC_API_KEY` | Enables the Claude assistant. Unset = scripted fallback. |
-| `LEADRESCUE_MODEL` | Model ID. Default `claude-opus-5-5`. `claude-haiku-5-5` costs far less per conversation; compare reply quality before switching. |
-| `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` | Sends real texts and turns on webhook signature checks. Unset = dry run. |
-| `PUBLIC_BASE_URL` | Public https URL of this server. Required with Twilio credentials. |
-| `DISABLE_SIM=1` | Turns off the demo page and `/sim/*` in production. |
+| `NODE_ENV=production` | Refuses explicit demo startup. |
+| `DISABLE_SIM=1` | Also refuses explicit demo startup if retained in existing configuration. |
+| `ANTHROPIC_API_KEY` | Enables Claude on the webhook server. Unset it and `ANTHROPIC_AUTH_TOKEN`, or set `LEADRESCUE_BRAIN=script`, to use the scripted assistant. |
+| `LEADRESCUE_MODEL` | Model ID. Default `claude-opus-5-5`. |
+| `TWILIO_AUTH_TOKEN`, `PUBLIC_BASE_URL` | Enable signed webhook requests. Set the base URL to the exact public HTTPS origin configured in Twilio. Missing configuration causes requests to be denied. |
+| `TWILIO_ACCOUNT_SID` | With the auth token, enables real outbound SMS on the webhook server. Keep live credentials out of staging until authorized. |
 | `PORT` | Default 3000. |
 
-## Going live for a client
+Voice mode `forwarded` expects the carrier to forward unanswered calls only. Mode `dial` rings the owner through Twilio and uses the signed `POST /twilio/dial-status` callback to determine the outcome. Configure voice and inbound SMS on `POST /twilio/voice` and `POST /twilio/sms`.
 
-1. Buy a Twilio number and register the client for A2P 10DLC (carriers block unregistered business texting).
-2. Copy `config/businesses/sample-hvac.json`, fill in the client's details and the new number.
-3. Point the number's Voice webhook at `POST {PUBLIC_BASE_URL}/twilio/voice` and its Messaging webhook at `POST {PUBLIC_BASE_URL}/twilio/sms`.
-4. Pick a mode:
-   - `forwarded`: the client turns on "forward when unanswered" with their carrier to the Twilio number. They keep their number and phone habits. Every call reaching us is already a missed call.
-   - `dial`: the Twilio number is the published number. We ring `ownerPhone` for `ringSeconds`, and text back only if nobody picks up.
-5. Call the client's line from a test phone, let it ring out, and walk the conversation end to end before telling them it's live.
+## Before a customer pilot
 
-## What has and hasn't been verified
+- **Consent.** Have counsel and the contractor review the exact caller flow against the [Twilio Messaging Policy](https://www.twilio.com/en-us/legal/messaging-policy) and applicable TCPA rules before any customer traffic. The engine currently sends after an unanswered call without checking for customer consent. Require a documented, sender-specific opt-in before sending a proactive text. Keep consent evidence, identify the sender, and let callers use a voice callback if they decline. Reconcile carrier opt-out events with the application's list and test that an opt-out also blocks any reply already in progress. Keep the pilot focused on the service request.
+- **Twilio.** Confirm sender registration for the chosen number. Test both call modes, missed and answered calls, inbound replies, owner alerts, and STOP/START/HELP with consenting test phones. Verify signatures through the actual HTTPS ingress against the exact configured URL. The custom signature logic has offline fixtures. Check it against Twilio's fixtures or use Twilio's SDK validator before the pilot. Add delivery status tracking using message SIDs and signed callbacks. The current outbox marks an accepted REST request as sent, and the voice flow can announce a text even when sending was skipped or failed.
+- **Claude.** Validate the configured model, structured output, and fallback with synthetic messages against the actual pilot account. Check timeout and refusal handling, prompt injection, reply length, and accidental diagnosis, pricing, or appointment promises. Make emergency guidance and escalation deterministic and verify human handoff. Review [Anthropic's data retention terms](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention) and minimize transcripts and addresses sent to the model.
+- **Hosting and reliability.** Start with one contractor and private business configuration. Keep secrets, transcripts, and backups outside the public repo. Use restricted encrypted storage, limited retention, and a tested deletion and recovery process. The webhook runtime currently uses one local JSON file. Use a durable webhook queue and deduplicate Twilio call and message IDs before relying on retries or restarts. Verify TLS, public route exposure, monitoring with redacted logs, and an outbound kill switch before enabling customer messaging.
 
-Verified here (automated tests plus a browser run of the demo): the text-back, 24-hour redial cooldown, STOP/START/HELP handling, lead capture, owner and emergency alerts, the failure hand-off, webhook signature checking, and both call modes at the HTTP level.
+## Verification
 
-Not yet verified, because no accounts were available: a real Twilio call or text, and a live Claude API call. The Claude request is tested against a stubbed client only. Do one live run of each before a customer depends on it.
-
-## Compliance notes
-
-Not legal advice. The service only texts people who just called the business, sends one text-back per caller per day, identifies the business, and honors STOP in code. Get the client's written OK to text their callers, and have an attorney confirm the TCPA position before scaling past pilots.
+`npm test` runs offline engine and HTTP tests, including demo isolation, production startup protection, disabled routes, and signed webhooks. The Claude test uses a stubbed client and messages use a dry-run sender. Live Twilio calls, handset delivery, live Claude requests, customer consent, and hosted ingress require separate verification.
