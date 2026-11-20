@@ -1,0 +1,14 @@
+{
+  "id": "sample-hvac",
+  "name": "Peach State Heating & Air (SAMPLE)",
+  "trade": "HVAC",
+  "services": ["AC repair", "furnace and heat pump repair", "new system installs", "seasonal tune-ups"],
+  "serviceArea": "Gwinnett, Hall and Barrow counties, Georgia",
+  "hours": "Mon-Fri 8am-6pm, emergency service 24/7",
+  "twilioNumber": "+15550100000",
+  "ownerPhone": "+15550100001",
+  "mode": "forwarded",
+  "ringSeconds": 20,
+  "textBack": "Hi, this is {name}. Sorry we missed your call! We're likely on a job. What can we help you with? Reply here and we'll get you taken care of. Reply STOP to opt out.",
+  "notes": "Never quote prices by text. Diagnostic visit fee is discussed by the office. Emergencies (no heat, no cooling with elderly/infants, gas smell) go to the owner immediately; for a gas smell tell them to leave the home and call 911 or the gas company first."
+}

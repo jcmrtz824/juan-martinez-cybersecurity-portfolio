@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeadRescue Demo</title>
+<style>
+  :root { --bg:#f4f1ea; --ink:#1c2321; --muted:#66706c; --card:#fff; --line:#ddd7ca; --accent:#c2410c; --me:#1f6f54; --them:#e9e5db; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.45 system-ui, sans-serif; background:var(--bg); color:var(--ink); }
+  header { padding:20px 16px 8px; max-width:1040px; margin:0 auto; }
+  h1 { margin:0 0 4px; font-size:22px; overflow-wrap:anywhere; }
+  section { min-width:0; }
+  header p { margin:0; color:var(--muted); font-size:14px; }
+  main { max-width:1040px; margin:0 auto; padding:12px 16px 40px; display:grid; gap:20px; grid-template-columns:minmax(0,360px) minmax(0,1fr); }
+  @media (max-width:760px) { main { grid-template-columns:1fr; } }
+  h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 8px; }
+  .phone { background:var(--card); border:1px solid var(--line); border-radius:28px; padding:14px; display:flex; flex-direction:column; height:560px; }
+  .thread { flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px; padding:6px 2px; }
+  .b { max-width:82%; padding:8px 12px; border-radius:16px; font-size:15px; white-space:pre-wrap; overflow-wrap:anywhere; }
+  .b.assistant { background:var(--them); align-self:flex-start; border-bottom-left-radius:4px; }
+  .b.customer { background:var(--me); color:#fff; align-self:flex-end; border-bottom-right-radius:4px; }
+  .sys { align-self:center; font-size:12px; color:var(--muted); }
+  form { display:flex; gap:8px; margin-top:8px; }
+  input[type=text] { flex:1; min-width:0; padding:10px 12px; border:1px solid var(--line); border-radius:20px; font:inherit; }
+  button { font:inherit; border:0; border-radius:20px; padding:10px 14px; background:var(--ink); color:#fff; cursor:pointer; }
+  button.call { background:var(--accent); width:100%; margin-bottom:8px; }
+  button.ghost { background:none; color:var(--muted); text-decoration:underline; padding:4px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-bottom:14px; }
+  dl { display:grid; grid-template-columns:110px 1fr; gap:4px 10px; margin:0; font-size:15px; }
+  dt { color:var(--muted); } dd { margin:0; overflow-wrap:anywhere; }
+  .pill { display:inline-block; font-size:12px; padding:2px 10px; border-radius:99px; background:var(--them); }
+  .pill.qualified { background:#d1f0e2; color:#14553f; } .pill.opted_out { background:#f7d9d0; color:#8a2c0d; }
+  .alert { border-left:4px solid var(--accent); padding:8px 12px; background:#fff7f2; margin-bottom:8px; white-space:pre-wrap; font-size:14px; border-radius:4px; }
+  .empty { color:var(--muted); font-size:14px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>LeadRescue demo: <span id="biz"></span></h1>
+  <p>Left: the customer's phone. Right: what the business owner gets. Nothing here sends real texts. Brain: <span id="brain"></span></p>
+</header>
+<main>
+  <section>
+    <h2>Customer's phone</h2>
+    <div class="phone">
+      <button class="call" id="call">Call the business (nobody answers)</button>
+      <div class="thread" id="thread"><div class="sys">Press the button to simulate a missed call.</div></div>
+      <form id="f"><input type="text" id="msg" placeholder="Reply as the customer" autocomplete="off"><button>Send</button></form>
+    </div>
+    <button class="ghost" id="reset">Reset demo</button>
+  </section>
+  <section>
+    <h2>Lead captured</h2>
+    <div class="card" id="lead"><div class="empty">No lead yet.</div></div>
+    <h2>Texts sent to the owner</h2>
+    <div id="alerts"><div class="empty">Nothing yet. The owner gets a text the moment a lead is qualified or an emergency is mentioned.</div></div>
+  </section>
+</main>
+<script>
+const phone = "+15550123456";
+const $ = (id) => document.getElementById(id);
+const post = (path, body) => fetch(path, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ phone, ...body }) });
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; e.textContent = text; return e; };
+
+async function refresh() {
+  const s = await (await fetch("/api/state")).json();
+  $("biz").textContent = s.business.name;
+  $("brain").textContent = s.brain;
+  const c = s.conversations.find((x) => x.phone === phone);
+  const thread = $("thread");
+  thread.replaceChildren();
+  if (!c) thread.append(el("div", "sys", "Press the button to simulate a missed call."));
+  else {
+    thread.append(el("div", "sys", "Missed call"));
+    for (const m of c.messages) thread.append(el("div", "b " + m.role, m.body));
+    thread.scrollTop = thread.scrollHeight;
+  }
+  const lead = $("lead");
+  lead.replaceChildren();
+  if (!c) lead.append(el("div", "empty", "No lead yet."));
+  else {
+    const dl = document.createElement("dl");
+    const rows = [["Status", null], ["Phone", c.phone], ["Name", c.lead.name], ["Needs", c.lead.service], ["Where", c.lead.address], ["When", c.lead.preferredTime], ["Urgency", c.lead.urgency]];
+    for (const [k, v] of rows) {
+      dl.append(el("dt", "", k));
+      const dd = el("dd", "", v || (k === "Status" ? "" : "-"));
+      if (k === "Status") dd.append(el("span", "pill " + c.status, c.status.replace("_", " ")));
+      dl.append(dd);
+    }
+    lead.append(dl);
+  }
+  const alerts = $("alerts");
+  alerts.replaceChildren();
+  if (!s.ownerAlerts.length) alerts.append(el("div", "empty", "Nothing yet. The owner gets a text the moment a lead is qualified or an emergency is mentioned."));
+  for (const a of s.ownerAlerts) alerts.append(el("div", "alert", a.body));
+}
+$("call").onclick = async () => { await post("/sim/missed-call", {}); refresh(); };
+$("f").onsubmit = async (e) => {
+  e.preventDefault();
+  const body = $("msg").value.trim();
+  if (!body) return;
+  $("msg").value = "";
+  $("thread").append(el("div", "b customer", body));
+  await post("/sim/sms", { body });
+  refresh();
+};
+$("reset").onclick = async () => { await post("/sim/reset", {}); refresh(); };
+refresh();
+</script>
+</body>
+</html>
